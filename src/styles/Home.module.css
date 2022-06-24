@@ -104,7 +104,7 @@
 }
 
 .logo {
-  height: 1em;
+  /* height: 1em; */
   margin-left: 0.5rem;
 }
 
@@ -113,4 +113,43 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+@font-face {
+  font-family: 'Poppins-regular';
+  src: local('Poppins'), url(./fonts/files/Poppins-Thin.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: "SnellBT Regular";
+  src: url(./fonts/files/SnellBT-Regular.otf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SnellBT Bold";
+  src: url(./fonts/files/SnellBT-Bold.otf);
+  font-weight: 700;
+}
+
+
+.italyFont {
+  color: #0c0c0c;
+    font-family: "SnellBT Regular", sans-serif;
+    position: relative;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.aboutTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }

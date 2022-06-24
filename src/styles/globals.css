@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'Poppins-regular';
+  src: local('Poppins'), url(./fonts/files/Poppins-Thin.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: "SnellBT Regular";
+  src: url(./fonts/files/SnellBT-Regular.otf);
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SnellBT Bold";
+  src: url(./fonts/files/SnellBT-Bold.otf);
+  font-weight: 700;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Poppins sans-serif,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  font-family: 'Poppins-regular', sans-serif;
+  color: #0c0c0c;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+

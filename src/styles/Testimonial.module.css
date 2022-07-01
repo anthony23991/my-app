@@ -1,0 +1,42 @@
+@font-face {
+    font-family: "SnellBT Regular";
+    src: url(./fonts/files/SnellBT-Regular.otf);
+    font-weight: 500;
+  }
+
+
+  .carouselSection {
+    background-image: url('/testimonial-bg.png');
+    background-size: cover;
+    min-height: 900px;
+    padding: 3rem;
+    padding-left: 5rem;
+    background-origin: padding-box;
+    
+  }
+
+.carouselParentSection {
+  padding-left: 5rem;
+}
+  
+
+
+.carouselTitle {
+    font-family: "SnellBT Regular", sans-serif;
+    position: relative;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.carousel{
+}
+
+.imgBox {
+  position: absolute;
+  left: -100px;
+  background-color: white;
+  width: 155px;
+  height: 161px;
+  z-index: 1;
+}

@@ -36,10 +36,10 @@ const Header = () => {
                 <a href="#">Products</a>
               </Grid>
               <Grid item className={classes.menuItem}>
-                <a href="#">Testimonial</a>
+                <a href="/testimonial">Testimonial</a>
               </Grid>
               <Grid item className={classes.menuItem}>
-                <a href="#">Contact Us</a>
+                <a href="/contactUs">Contact Us</a>
               </Grid>
             </Grid>
           </Grid>

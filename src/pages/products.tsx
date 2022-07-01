@@ -6,7 +6,7 @@ import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
 import styles from "../styles/Home.module.css";
 
-const AboutUs: NextPage = () => {
+const Products: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 1280px)");
 
   return (
@@ -58,4 +58,4 @@ const AboutUs: NextPage = () => {
   );
 };
 
-export default AboutUs;
+export default Products;

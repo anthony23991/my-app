@@ -1,0 +1,59 @@
+@font-face {
+    font-family: "SnellBT Regular";
+    src: url(./fonts/files/SnellBT-Regular.otf);
+    font-weight: 500;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: local('Poppins'), url(./fonts/files/Poppins-Medium.ttf);
+  }
+
+.main {
+    min-height: 100vh;
+  padding: 4rem 5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contactTitle {
+    font-family: "SnellBT Regular", sans-serif;
+    position: relative;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.contactInput {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+    padding-left: 15px;
+    background-color: transparent;
+    outline: none;
+    color: #000000;
+    border: 1px solid #a5a5a5;
+    font-family: "Poppins", sans-serif;
+    color: #0c0c0c;
+    font-size: 1rem;
+}
+
+.submitInput {
+  padding: 12px 35px;
+  background-color: #46200b;
+  color: #ffffff;
+  border-radius: 0;
+  border: 1px solid #46200b;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  font-size: 15px;
+  color: #fff;
+  margin-top: 15px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+
+.messageInput {
+  height: 120px;
+}

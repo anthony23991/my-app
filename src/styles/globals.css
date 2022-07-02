@@ -1,16 +1,56 @@
 @font-face {
-  font-family: 'Poppins-regular';
+  font-family: 'Poppins';
+  font-weight: 100;
   src: local('Poppins'), url(./fonts/files/Poppins-Thin.ttf) format('truetype');
 }
-
 @font-face {
-  font-family: "SnellBT Regular";
-  src: url(./fonts/files/SnellBT-Regular.otf);
+  font-family: 'Poppins';
+  font-weight: 200;
+  src: local('Poppins'), url(./fonts/files/Poppins-ExtraLight.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 300;
+  src: local('Poppins'), url(./fonts/files/Poppins-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 400;
+  src: local('Poppins'), url(./fonts/files/Poppins-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
   font-weight: 500;
+  src: local('Poppins'), url(./fonts/files/Poppins-Medium.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 600;
+  src: local('Poppins'), url(./fonts/files/Poppins-SemiBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 700;
+  src: local('Poppins'), url(./fonts/files/Poppins-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 800;
+  src: local('Poppins'), url(./fonts/files/Poppins-ExtraBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-weight: 900;
+  src: local('Poppins'), url(./fonts/files/Poppins-Black.ttf) format('truetype');
 }
 
 @font-face {
-  font-family: "SnellBT Bold";
+  font-family: "SnellBT";
+  src: url(./fonts/files/SnellBT-Regular.otf);
+  font-size: 500;
+}
+@font-face {
+  font-family: "SnellBT";
   src: url(./fonts/files/SnellBT-Bold.otf);
   font-weight: 700;
 }
@@ -23,8 +63,11 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+
+
 body {
-  font-family: 'Poppins-regular', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;

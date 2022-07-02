@@ -1,0 +1,72 @@
+.container {
+  font-family: "SnellBT", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 90px 0;
+  display: block;
+  width: 100%;
+}
+
+.offerSection {
+  padding-left: 7%;
+  padding-right: 7%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.box {
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.boxText {
+  font-family: "SnellBT", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 90px 0;
+  display: block;
+  border: 1px solid #6c6c6c;
+  width: 100% !important;
+  padding: 45px 15px 225px 15px;
+}
+
+.offerTitle {
+  font-size: 2.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.offerText {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+  white-space: pre-wrap;
+  font-weight: 700;
+}
+
+.imageSection {
+  margin-top: -190px;
+}
+
+.moreSection {
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.moreText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #6c6c6c;
+}

@@ -1,16 +1,9 @@
-@font-face {
-    font-family: "SnellBT Regular";
-    src: url(./fonts/files/SnellBT-Regular.otf);
-    font-weight: 500;
-  }
-
-
-  .carouselSection {
+.carouselSection {
     background-image: url('/testimonial-bg.png');
     background-size: cover;
     min-height: 900px;
     padding: 3rem;
-    padding-left: 5rem;
+    padding-left: 0rem;
     background-origin: padding-box;
     
   }
@@ -22,9 +15,9 @@
 
 
 .carouselTitle {
-    font-family: "SnellBT Regular", sans-serif;
+    font-family: "SnellBT", sans-serif;
     position: relative;
-    font-weight: bold;
+    font-weight: 700;
     font-size: 2.5rem;
     color: white;
 }

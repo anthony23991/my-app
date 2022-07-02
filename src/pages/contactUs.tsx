@@ -9,6 +9,7 @@ import Header from "../components/layout/header";
 import styles from "../styles/ContactUs.module.css";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
+import Button from "../components/button";
 
 const initialForm: ContactForm = {
   email: "",
@@ -138,12 +139,13 @@ const ContactUs: NextPage = () => {
                   handleChange(event.target.value, "message");
                 }}
               />
-              <input
+              {/* <input
                 type="submit"
                 value="SEND NOW"
                 onSubmit={handleSubmit}
                 className={styles.submitInput}
-              />
+              /> */}
+              <Button type="submit" text="SEND NOW" onClick={handleSubmit} />
             </form>
           </Grid>
           <Grid item xs={isMobile ? 12 : 6}>

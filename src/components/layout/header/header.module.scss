@@ -3,7 +3,8 @@
   justify-content: space-between;
   background-color: #fff;
   border-bottom: 1px solid #e6e6e6;
-  font-family: "Poppins-regular";
+  font-family: "Poppins";
+  font-weight: 400;
 }
 
 .logo {
@@ -20,7 +21,8 @@
 .menuItem {
   margin-left: 1rem;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 400;
+  text-transform: uppercase;
   color: #000;
   text-decoration: none;
 }

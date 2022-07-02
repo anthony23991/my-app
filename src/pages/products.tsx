@@ -4,7 +4,8 @@ import Head from "next/head";
 import Image from "next/image";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
-import styles from "../styles/Home.module.css";
+import ProductCard from "../components/products/productCard";
+import styles from "../styles/Products.module.css";
 
 const Products: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 1280px)");
@@ -19,37 +20,34 @@ const Products: NextPage = () => {
       <Header />
 
       <main className={styles.main}>
-        <Grid container>
-          <Grid
-            item
-            xs={6}
-            flexGrow={0}
-            flexShrink={0}
-            flexBasis={0.5}
-            paddingRight={0}
-            paddingLeft={25}
-            justifyContent={"center"}
-          >
-            <div className={[styles.italyFont, styles.aboutTitle].join(" ")}>
-              About Our Company
-            </div>
-            <div>
-              Lorem Ipsum is that it has a more-or-less normal distribution of
-              letters, as opposed to using 'Content here, content here', making
-              it look like readable English. Many desktop publishing packages
-              and web pagend web page editors now use Lorem Ipsum as their
-              default model text,
-            </div>
-          </Grid>
-          <Grid item xs={6} padding={5} paddingLeft={0}>
-            <Image
-              src="/about-img.png"
-              alt="logo"
-              layout="responsive"
-              height={300}
-              width={600}
-            />
-          </Grid>
+        <Grid>
+          <div className={[styles.italyFont, styles.productsTitle].join(" ")}>
+            Our products
+          </div>
+          <div className={styles.productsTitleText}>
+            Many desktop publishing packages and web pagend web page editors now
+            use Lorem Ipsum as their test.
+          </div>
+          <ProductCard
+            img="/about-img.png"
+            title="yummy chocolate"
+            price={5.9}
+          />
+          <ProductCard
+            img="/about-img.png"
+            title="yummy chocolate"
+            price={5.9}
+          />
+          <ProductCard
+            img="/about-img.png"
+            title="yummy chocolate"
+            price={5.9}
+          />
+          <ProductCard
+            img="/about-img.png"
+            title="yummy chocolate"
+            price={5.9}
+          />
         </Grid>
       </main>
 

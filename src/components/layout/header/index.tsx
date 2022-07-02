@@ -9,14 +9,14 @@ const Header = () => {
   return (
     <>
       <header className={classes.header}>
-        <Grid container flexDirection={"column"} padding={5}>
+        <Grid container flexDirection={"column"} padding={5} paddingBottom={0}>
           <Grid item xs={isMobile ? 12 : 6}>
             <div className={classes.logo}>
               <Image
                 src="/logo.png"
                 alt="logo"
                 width={isMobile ? 100 : 100}
-                height={isMobile ? 100 : 20}
+                height={isMobile ? 50 : 20}
               />
             </div>
           </Grid>
@@ -33,7 +33,7 @@ const Header = () => {
                 <a href="aboutUs">About</a>
               </Grid>
               <Grid item className={classes.menuItem}>
-                <a href="#">Products</a>
+                <a href="/products">Products</a>
               </Grid>
               <Grid item className={classes.menuItem}>
                 <a href="/testimonial">Testimonial</a>

@@ -4,6 +4,7 @@ import React, { FunctionComponent } from "react";
 import Button from "../button";
 import classes from "./offersCard.module.scss";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import SeeMore from "../seeMore";
 
 interface Props {
   img: string;
@@ -31,12 +32,7 @@ const OffersCard: FunctionComponent<Props> = ({ discount, img }) => {
                 width={565}
               />
             </div>
-            <div className={classes.moreSection}>
-              <a href="" style={{ display: "flex", flexDirection: "row" }}>
-                <div className={classes.moreText}>See More</div>
-                <ArrowRightAltIcon fontSize="large" />
-              </a>
-            </div>
+            <SeeMore onClick={() => {}} />
           </div>
         </div>
       </div>

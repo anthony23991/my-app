@@ -54,6 +54,21 @@
   src: url(./fonts/files/SnellBT-Bold.otf);
   font-weight: 700;
 }
+@font-face {
+  font-family: "Lobster";
+  src: url(./fonts/files/LobsterTwo-Regular.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Lobster";
+  src: url(./fonts/files/LobsterTwo-Bold.ttf);
+  font-weight: bold;
+}
+@font-face {
+  font-family: "Lobster";
+  src: url(./fonts/files/LobsterTwo-Italic.ttf);
+  font-style: italic;
+}
 
 html,
 body {

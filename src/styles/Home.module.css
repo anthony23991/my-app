@@ -1,13 +1,3 @@
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .footer {
   display: flex;
   flex: 1;
@@ -106,9 +96,9 @@
 
 .italyFont {
   color: #0c0c0c;
-    font-family: "SnellBT", sans-serif;
+    font-family: "Lobster";
     position: relative;
-    font-weight: 700;
+    font-weight: bold;
     font-size: 3rem;
 }
 

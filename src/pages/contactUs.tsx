@@ -31,6 +31,7 @@ const center = {
 
 const ContactUs: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 770px)");
+  const isTablet = useMediaQuery("(max-width: 1000px)");
   const router = useRouter();
   const [contactFormState, setContactFormState] =
     useState<ContactForm>(initialForm);
@@ -102,7 +103,7 @@ const ContactUs: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.contactTitle}>Contact Us </div>
-        <Grid container justifyContent={"flex-end"}>
+        <Grid container justifyContent={isTablet ? "flex-start" : "flex-end"}>
           <Grid item xs={isMobile ? 12 : 4}>
             <form onSubmit={handleSubmit}>
               <input

@@ -14,6 +14,17 @@
     margin-bottom: 2rem;
 }
 
+@media (max-width: 1000px) {
+  .contactTitle {
+    padding-left: 5%;
+  }
+}
+@media (max-width: 600px) {
+  .main {
+    padding: 2rem 1rem;
+  }
+}
+
 .contactInput {
     width: 100%;
     height: 50px;

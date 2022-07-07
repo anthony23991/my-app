@@ -9,7 +9,9 @@ import Header from "../components/layout/header";
 import styles from "../styles/Testimonial.module.css";
 
 const Testimonial: NextPage = () => {
-  const isMobile = useMediaQuery("(max-width: 1280px)");
+  const isTablet = useMediaQuery("(max-width: 1030px)");
+  const isSmall = useMediaQuery("(max-width: 1200px)");
+  const isPhone = useMediaQuery("(max-width: 600px)");
   const router = useRouter();
 
   const testimonials = ["testimonial1", "testimonial2", "testimonial3"];
@@ -22,72 +24,178 @@ const Testimonial: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {router.pathname === "/" ? <></> : <Header />}
-
       <main className={styles.main}>
-        <Grid container padding={5}>
-          <Grid item xs={6} paddingTop={20}>
-            <Image
-              src="/about-img.png"
-              alt="logo"
-              layout="responsive"
-              width={200}
-              height={100}
-            />
-          </Grid>
-          <Grid item xs={6} className={styles.carouselParentSection}>
-            <div className={styles.sliderBg}></div>
-            <div className={styles.sliderSection}>
-              <div className={styles.carouselTitle}>Testimonial</div>
-              <Carousel
-                swipe={true}
-                animation="slide"
-                className={styles.carousel}
-                navButtonsProps={{
-                  style: {
-                    backgroundColor: "#a04120",
-                    opacity: 0.4,
-                    width: 50,
-                    height: 50,
-                  },
-                }}
-              >
-                {testimonials.map((testimonial, index) => (
-                  <div key={index}>
-                    <Grid minHeight={500} container>
-                      <Grid item xs={5}>
-                        <div className={styles.imgBox}>
-                          <Image
-                            src="/about-img.png"
-                            alt="logo"
-                            layout="fixed"
-                            width={200}
-                            height={100}
-                          />
-                        </div>
-                      </Grid>
-                      <Grid item xs={7} paddingTop={5}>
-                        <div className={styles.testimonialTitle}>
-                          Laura Ipsum
-                        </div>
-                        <div className={styles.testimonialText}>
-                          long established fact that a reader will be distracted
-                          by the readable content of a page when looking at its
-                          layout. The point of using Lorem Ipsum is that it
-                          haslong established fact that a reader will be
-                          distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it haslong established fact that a reader will
-                          be distracted by the readable content of a page when
-                          looking at its layout. The point of using Lorem Ipsum
-                          is that it has
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </Grid>
+        <Grid
+          container
+          padding={12}
+          paddingRight={isTablet ? 0 : 12}
+          paddingLeft={isPhone ? 0 : isTablet ? 4 : 12}
+        >
+          {isTablet ? (
+            <>
+              <Grid item xs={12} className={styles.carouselParentSection}>
+                <div className={styles.sliderBg}></div>
+                <div className={styles.sliderSection}>
+                  <div className={styles.carouselTitle}>Testimonial</div>
+                  <Carousel
+                    swipe={true}
+                    animation="slide"
+                    className={styles.carousel}
+                    navButtonsProps={{
+                      style: {
+                        backgroundColor: "#a04120",
+                        opacity: 0.4,
+                        width: 50,
+                        height: 50,
+                      },
+                    }}
+                  >
+                    {testimonials.map((testimonial, index) => (
+                      <div key={index}>
+                        <Grid
+                          minHeight={500}
+                          container
+                          flexDirection={isPhone ? "column" : "row"}
+                        >
+                          <Grid item xs={isPhone ? 12 : 5}>
+                            <div className={styles.imgBox}>
+                              <div
+                                style={{
+                                  width: 180,
+                                  height: 150,
+                                  backgroundColor: "#996959",
+                                  position: "absolute",
+                                  top: 20,
+                                }}
+                              ></div>
+                              <Image
+                                src="/about-img.png"
+                                alt="logo"
+                                layout="fixed"
+                                width={200}
+                                height={150}
+                                style={{
+                                  transform: "translateX(10%)",
+                                  backgroundColor: "white",
+                                }}
+                              />
+                            </div>
+                          </Grid>
+                          <Grid item xs={isPhone ? 12 : 7} paddingTop={5}>
+                            <div className={styles.testimonialTitle}>
+                              Laura Ipsum
+                            </div>
+                            <div className={styles.testimonialText}>
+                              long established fact that a reader will be
+                              distracted by the readable content of a page when
+                              looking at its layout. The point of using Lorem
+                              Ipsum is that it haslong established fact that a
+                              reader will be distracted by the readable content
+                              of a page when looking at its layout. The point of
+                              using Lorem Ipsum is that it haslong established
+                              fact that a reader will be distracted by the
+                              readable content of a page when looking at its
+                              layout. The point of using Lorem Ipsum is that it
+                              has
+                            </div>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
+              </Grid>
+              <Grid item xs={12} paddingTop={20}>
+                <Image
+                  src="/about-img.png"
+                  alt="logo"
+                  layout="responsive"
+                  width={200}
+                  height={100}
+                />
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={6} paddingTop={20}>
+                <Image
+                  src="/about-img.png"
+                  alt="logo"
+                  layout="responsive"
+                  width={200}
+                  height={100}
+                />
+              </Grid>
+              <Grid item xs={6} className={styles.carouselParentSection}>
+                <div className={styles.sliderBg}></div>
+                <div className={styles.sliderSection}>
+                  <div className={styles.carouselTitle}>Testimonial</div>
+                  <Carousel
+                    swipe={true}
+                    animation="slide"
+                    className={styles.carousel}
+                    navButtonsProps={{
+                      style: {
+                        backgroundColor: "#a04120",
+                        opacity: 0.4,
+                        width: 50,
+                        height: 50,
+                      },
+                    }}
+                  >
+                    {testimonials.map((testimonial, index) => (
+                      <div key={index}>
+                        <Grid minHeight={500} container>
+                          <Grid item xs={5}>
+                            <div className={styles.imgBox}>
+                              <div
+                                style={{
+                                  width: 150,
+                                  height: 150,
+                                  backgroundColor: "#996959",
+                                  position: "absolute",
+                                  top: 20,
+                                }}
+                              ></div>
+                              <Image
+                                src="/about-img.png"
+                                alt="logo"
+                                layout="fixed"
+                                width={170}
+                                height={150}
+                                style={{
+                                  transform: "translateX(10%)",
+                                  backgroundColor: "white",
+                                }}
+                              />
+                            </div>
+                          </Grid>
+                          <Grid item xs={7} paddingTop={5}>
+                            <div className={styles.testimonialTitle}>
+                              Laura Ipsum
+                            </div>
+                            <div className={styles.testimonialText}>
+                              long established fact that a reader will be
+                              distracted by the readable content of a page when
+                              looking at its layout. The point of using Lorem
+                              Ipsum is that it haslong established fact that a
+                              reader will be distracted by the readable content
+                              of a page when looking at its layout. The point of
+                              using Lorem Ipsum is that it haslong established
+                              fact that a reader will be distracted by the
+                              readable content of a page when looking at its
+                              layout. The point of using Lorem Ipsum is that it
+                              has
+                            </div>
+                          </Grid>
+                        </Grid>
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
+              </Grid>
+            </>
+          )}
         </Grid>
       </main>
 

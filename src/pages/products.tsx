@@ -21,7 +21,10 @@ const Products: NextPage = () => {
       </Head>
       {router.pathname === "/" ? <></> : <Header />}
 
-      <main className={styles.main}>
+      <main
+        className={styles.main}
+        style={{ padding: isMobile ? "0" : "1% 2%", paddingTop: "5%" }}
+      >
         <Grid>
           <div className={[styles.italyFont, styles.productsTitle].join(" ")}>
             Our products

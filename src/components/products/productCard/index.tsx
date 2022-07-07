@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { FunctionComponent, useState } from "react";
 import classes from "./productCard.module.scss";
@@ -11,6 +11,7 @@ interface Props {
 
 const ProductCard: FunctionComponent<Props> = ({ img, title, price }) => {
   const [isHovering, setIsHovering] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 770px)");
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -25,6 +26,7 @@ const ProductCard: FunctionComponent<Props> = ({ img, title, price }) => {
         className={classes.container}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
+        style={{ margin: isMobile ? "5%" : "5%" }}
       >
         <Image src={img} alt="logo" layout="fixed" height={190} width={200} />
         {isHovering && (

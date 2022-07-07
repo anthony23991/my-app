@@ -45,11 +45,28 @@
   z-index: 2;
 }
 
+@media (max-width: 1030px) {
+  .sliderBg {
+    width: 90%;
+  }
+}
+@media (max-width: 600px) {
+  .sliderBg {
+    width: 100%;
+  }
+  .carouselTitle {
+    padding-left: 0rem;
+    text-align: center;
+  }
+}
+
 .sliderSection {
   width: 100%;
   position: relative;
   z-index: 3;
   padding: 5rem;
+  padding-right: 5%;
+  padding-left: 5%;
 }
 
 .testimonialTitle {

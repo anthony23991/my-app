@@ -18,8 +18,18 @@
   display: flex;
 }
 
+.menuIcon {
+  transform: scale(1.5);
+  color: "#46200b";
+
+  &:hover {
+    cursor: pointer;
+    color: #a04120;
+  }
+}
+
 .menuItem {
-  margin-left: 1rem;
+  // margin-left: 1rem;
   font-size: 1.2rem;
   font-weight: 400;
   text-transform: uppercase;

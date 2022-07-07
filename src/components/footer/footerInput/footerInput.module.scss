@@ -7,11 +7,18 @@
   width: 100%;
   padding-left: 15px;
   outline: none;
-  font-size: 20px;
+  font-size: 1.5rem;
   color: black;
   border: none;
   border-bottom: 1px solid #46200b;
   font-family: "Poppins", sans-serif;
+}
+
+@media (max-width: 800px) {
+  .footerInput {
+    font-size: 1rem;
+    width: 100%;
+  }
 }
 
 .submitArrowCard {

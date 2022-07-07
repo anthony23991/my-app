@@ -33,6 +33,17 @@
   padding-left: 20%;
 }
 
+@media (max-width: 800px) {
+  .footerList {
+    text-align: center;
+    padding-left: 0%;
+  }
+
+  .footerListItem {
+    justify-content: center;
+  }
+}
+
 .footerListItem {
   margin-bottom: 10px;
 }

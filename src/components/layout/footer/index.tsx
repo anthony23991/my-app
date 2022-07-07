@@ -16,6 +16,7 @@ const Footer = () => {
   const isMobile = useMediaQuery("(max-width: 1280px)");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [email, setEmail] = useState("");
+  const isTablet = useMediaQuery("(max-width: 800px)");
 
   const onChange = (value: string) => {
     setEmail(value);
@@ -30,13 +31,23 @@ const Footer = () => {
         <Grid
           justifyContent={"center"}
           textAlign={"center"}
-          paddingRight={7}
-          paddingLeft={7}
+          paddingRight={isTablet ? 2 : 7}
+          paddingLeft={isTablet ? 2 : 7}
           paddingTop={5}
           paddingBottom={5}
         >
-          <Grid container justifyContent={"center"} marginBottom={5}>
-            <Grid item xs={8} marginRight={3}>
+          <Grid
+            container
+            justifyContent={"center"}
+            marginBottom={5}
+            flexDirection={isTablet ? "column" : "row"}
+          >
+            <Grid
+              item
+              xs={isTablet ? 12 : 8}
+              marginRight={isTablet ? 0 : 3}
+              marginBottom={5}
+            >
               <FooterInput
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                   onChange(e.target.value)
@@ -45,28 +56,41 @@ const Footer = () => {
                 placeholder={"Email"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={isTablet ? 12 : 3}>
               <Grid
                 container
                 flexDirection={"row"}
-                justifyContent={"flex-start"}
+                justifyContent={isTablet ? "center" : "flex-start"}
               >
-                <Grid item marginRight={2} xs={2} onClick={facebookHandler}>
+                <Grid
+                  item
+                  marginRight={isTablet ? 0 : 2}
+                  xs={isTablet ? 4 : 2}
+                  onClick={facebookHandler}
+                  paddingLeft={isTablet ? "10%" : 0}
+                >
                   <div className={classes.socialMediaIcon}>
                     <FacebookIcon fontSize="medium" />
                   </div>
                 </Grid>
-                <Grid item marginRight={2} xs={2} onClick={twitterHandler}>
+                <Grid
+                  item
+                  marginRight={isTablet ? 0 : 2}
+                  xs={isTablet ? 4 : 2}
+                  onClick={twitterHandler}
+                  paddingLeft={isTablet ? "10%" : 0}
+                >
                   <div className={classes.socialMediaIcon}>
                     <TwitterIcon fontSize="medium" />
                   </div>
                 </Grid>
                 <Grid
                   item
-                  marginRight={2}
-                  xs={2}
+                  marginRight={isTablet ? 0 : 2}
+                  xs={isTablet ? 4 : 2}
                   justifyContent="center"
                   onClick={linkedInHandler}
+                  paddingLeft={isTablet ? "10%" : 0}
                 >
                   <div className={classes.socialMediaIcon}>
                     <LinkedInIcon fontSize="medium" />
@@ -75,8 +99,13 @@ const Footer = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid item xs={3} paddingLeft={0}>
+          <Grid container flexDirection={isTablet ? "column" : "row"}>
+            <Grid
+              item
+              xs={isTablet ? 12 : 3}
+              paddingLeft={0}
+              marginBottom={isTablet ? 5 : 0}
+            >
               <div className={classes.footerTitle}>Menu</div>
               <div className={classes.footerList}>
                 <a href={"/"}>Home</a>
@@ -94,7 +123,13 @@ const Footer = () => {
                 <a href={"/"}>Contact Us</a>
               </div>
             </Grid>
-            <Grid item xs={3}>
+            <Grid
+              item
+              xs={isTablet ? 12 : 3}
+              paddingLeft={isTablet ? "10%" : 0}
+              paddingRight={isTablet ? "10%" : 0}
+              marginBottom={isTablet ? 5 : 0}
+            >
               <div className={classes.footerTitle}>Instagram</div>
               <InstaCard
                 height={"50px"}
@@ -109,14 +144,13 @@ const Footer = () => {
                 imgSrc={"/about-img.png"}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={isTablet ? 12 : 3} marginBottom={isTablet ? 5 : 0}>
               <div className={classes.footerTitle}>Company</div>
               <div
                 className={classes.footerList}
                 style={{
                   paddingLeft: "10%",
-                  // paddingRight: "10%",
-                  textAlign: "left",
+                  textAlign: isTablet ? "center" : "left",
                 }}
               >
                 when looking at its layout. The point of using Lorem Ipsum is
@@ -124,14 +158,14 @@ const Footer = () => {
                 opposed to
               </div>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={isTablet ? 12 : 3}>
               <div className={classes.footerTitle}>Contact Us</div>
               <div className={classes.footerList}>
                 <a href={"/contactUs"}>
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={3}
+                    paddingLeft={isTablet ? 0 : 3}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>
@@ -146,7 +180,7 @@ const Footer = () => {
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={3}
+                    paddingLeft={isTablet ? 0 : 3}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>
@@ -161,7 +195,7 @@ const Footer = () => {
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={3}
+                    paddingLeft={isTablet ? 0 : 3}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>

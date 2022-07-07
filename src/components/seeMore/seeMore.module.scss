@@ -13,4 +13,11 @@
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
+  margin-right: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .moreText {
+    font-size: 1.2rem;
+  }
 }

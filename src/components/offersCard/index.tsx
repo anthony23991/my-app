@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import React, { FunctionComponent } from "react";
 import Button from "../button";
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const OffersCard: FunctionComponent<Props> = ({ discount, img }) => {
+  const isMobile = useMediaQuery("(max-width: 600px)");
   return (
     <React.Fragment>
       <div className={classes.container}>
@@ -23,16 +24,22 @@ const OffersCard: FunctionComponent<Props> = ({ discount, img }) => {
               <div className={classes.offerText}>Any Products items</div>
               <Button type="button" text="BUY NOW" onClick={() => {}} />
             </div>
-            <div className={classes.imageSection}>
-              <Image
-                src="/offer-img.png"
-                alt="logo"
-                layout="fixed"
-                height={300}
-                width={565}
-              />
-            </div>
-            <SeeMore onClick={() => {}} />
+            {isMobile ? (
+              <></>
+            ) : (
+              <>
+                <div className={classes.imageSection}>
+                  <Image
+                    src="/offer-img.png"
+                    alt="logo"
+                    layout="fixed"
+                    height={300}
+                    width={565}
+                  />
+                </div>
+                <SeeMore justifyContent="flex-start" onClick={() => {}} />
+              </>
+            )}
           </div>
         </div>
       </div>

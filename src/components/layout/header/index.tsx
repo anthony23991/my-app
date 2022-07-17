@@ -141,7 +141,7 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <Link href={userState?.connected ? "/profile" : "/login"}>
+                    <Link href={userState?.connected ? "/" : "/login"}>
                       <PersonIcon fontSize="large" className={classes.icon} />
                     </Link>
                   </Grid>
@@ -192,7 +192,7 @@ const Header = () => {
                   </Link>
                 </Grid>
                 <Grid item className={classes.menuItem}>
-                  <Link href={userState?.connected ? "/profile" : "/login"}>
+                  <Link href={userState?.connected ? "/" : "/login"}>
                     <PersonIcon fontSize="large" className={classes.icon} />
                   </Link>
                 </Grid>

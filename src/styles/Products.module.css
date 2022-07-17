@@ -1,0 +1,32 @@
+.main {
+    min-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.italyFont {
+    color: #0c0c0c;
+      font-family: "Lobster";
+      position: relative;
+      font-weight: bold;
+      font-size: 3rem;
+  }
+
+  .productsTitle {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: bold;
+  }
+
+  .productsTitleText {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    margin-top: 1rem;
+  }
+

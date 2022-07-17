@@ -1,0 +1,60 @@
+.container {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 350px;
+  border: 1px solid #6c6c6c;
+  padding-top: 25px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: transparent;
+    -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
+  }
+}
+
+.priceSection {
+  width: 100%;
+  height: 125px;
+  background-color: #46200b;
+  color: #ffffff;
+  padding: 15px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.poppinsFontBold {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.poppinsFontRegular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.productName {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.productPrice {
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+.buyNow {
+  font-size: 1rem;
+}

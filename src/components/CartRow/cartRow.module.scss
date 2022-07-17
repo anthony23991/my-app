@@ -1,0 +1,41 @@
+.cartRow {
+  border-bottom: 1px solid darkgrey;
+  // height: 7rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-family: "Poppins";
+  font-weight: 500;
+}
+
+.itemTitle {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.deleteBtn {
+  cursor: pointer;
+}
+
+.quantitySection {
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.quantityText {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1400px) {
+  .itemName {
+    text-align: center;
+  }
+}
+@media (max-width: 700px) {
+  .itemName {
+    text-align: start;
+  }
+}

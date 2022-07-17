@@ -1,17 +1,3 @@
-.container {
-  padding: 0 2rem;
-}
-
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .footer {
   display: flex;
   flex: 1;
@@ -108,37 +94,12 @@
   margin-left: 0.5rem;
 }
 
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-@font-face {
-  font-family: 'Poppins-regular';
-  src: local('Poppins'), url(./fonts/files/Poppins-Thin.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: "SnellBT Regular";
-  src: url(./fonts/files/SnellBT-Regular.otf);
-  font-weight: 500;
-}
-
-@font-face {
-  font-family: "SnellBT Bold";
-  src: url(./fonts/files/SnellBT-Bold.otf);
-  font-weight: 700;
-}
-
-
 .italyFont {
   color: #0c0c0c;
-    font-family: "SnellBT Regular", sans-serif;
+    font-family: "Lobster";
     position: relative;
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 .aboutTitle {

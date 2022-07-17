@@ -1,0 +1,44 @@
+.main {
+    min-height: 100vh;
+  padding: 4rem 5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.contactTitle {
+    font-family: "Lobster";
+    padding-left: 17%;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .contactTitle {
+    padding-left: 5%;
+  }
+}
+@media (max-width: 600px) {
+  .main {
+    padding: 2rem 1rem;
+  }
+}
+
+.contactInput {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+    padding-left: 15px;
+    background-color: transparent;
+    outline: none;
+    color: #000000;
+    border: 1px solid #a5a5a5;
+    font-family: "Poppins", sans-serif;
+    color: #0c0c0c;
+    font-size: 1rem;
+}
+
+.messageInput {
+  height: 120px;
+}

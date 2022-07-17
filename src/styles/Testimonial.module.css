@@ -1,0 +1,91 @@
+.carouselParentSection {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  background-size: cover;
+  background-position: top;
+  background-position-x: center;
+  background-position-y: top;
+  color: #ffffff;
+  margin-bottom: 3rem;
+}
+  
+
+
+.carouselTitle {
+    font-family: "Lobster";
+    position: relative;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: white;
+    padding-left: 15rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1150px) {
+  .carouselTitle {
+    padding-left: 10rem;
+  }
+}
+
+.sliderBg {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 75%;
+  height: 100%;
+  background-image: url("/testimonial-bg.png");
+  background-size: 100% 100%;
+  z-index: 2;
+}
+
+@media (max-width: 1030px) {
+  .sliderBg {
+    width: 90%;
+  }
+}
+@media (max-width: 600px) {
+  .sliderBg {
+    width: 100%;
+  }
+  .carouselTitle {
+    padding-left: 0rem;
+    text-align: center;
+  }
+}
+
+.sliderSection {
+  width: 100%;
+  position: relative;
+  z-index: 3;
+  padding: 5rem;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.testimonialTitle {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.testimonialText {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}

@@ -103,7 +103,9 @@ const Login: NextPage = () => {
                 marginTop: 30,
               }}
             >
-              <div className={styles.createText}>Don't have an account ?</div>
+              <div className={styles.createText}>
+                `Don{`&quot`}t have an account ?`
+              </div>
               <div>
                 <Link href="/createAccount">
                   <div className={styles.createLink}>Create an account</div>

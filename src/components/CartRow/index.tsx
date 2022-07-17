@@ -26,14 +26,14 @@ const CartRow: FunctionComponent<Props> = ({
     if (quantity > 1) {
       const newQuantity = quantity - 1;
       setQuantity(quantity - 1);
-      onQuantityChange(item?.id, newQuantity);
+      // onQuantityChange(item?.id, newQuantity);
     }
   };
 
   const increaseQuantityHandler = () => {
     const newQuantity = quantity + 1;
     setQuantity(quantity + 1);
-    onQuantityChange(item?.id, newQuantity);
+    // onQuantityChange(item?.id, newQuantity);
   };
 
   return (
@@ -41,7 +41,7 @@ const CartRow: FunctionComponent<Props> = ({
       {isSmall ? (
         <Grid container flexDirection={"row"} className={classes.cartRow}>
           <Grid item xs={4}>
-            <Image src={"/about-img.png"} width={100} height={100} />
+            <Image src={"/about-img.png"} width={100} height={100} alt="" />
           </Grid>
           <Grid item xs={8} paddingLeft={2}>
             <Grid container flexDirection={"row"}>
@@ -69,7 +69,9 @@ const CartRow: FunctionComponent<Props> = ({
                 </Grid>
                 <Grid item xs={4}>
                   <div className={classes.delete}>
-                    <div onClick={() => onDelete(item?.id)}>
+                    <div
+                    // onClick={() => onDelete(item?.id)}
+                    >
                       <HighlightOffIcon fontSize="large" />
                     </div>
                   </div>
@@ -138,9 +140,9 @@ const CartRow: FunctionComponent<Props> = ({
             item
             xs={1}
             paddingTop={2}
-            onClick={() => {
-              onDelete(item?.id);
-            }}
+            // onClick={() => {
+            //   onDelete(item?.id);
+            // }}
           >
             <HighlightOffIcon className={classes.deleteBtn} fontSize="large" />
           </Grid>

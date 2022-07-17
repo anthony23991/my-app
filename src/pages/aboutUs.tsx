@@ -41,10 +41,10 @@ const AboutUs: NextPage = () => {
             </div>
             <div className={styles.aboutText}>
               Lorem Ipsum is that it has a more-or-less normal distribution of
-              letters, as opposed to using 'Content here, content here', making
-              it look like readable English. Many desktop publishing packages
-              and web pagend web page editors now use Lorem Ipsum as their
-              default model text,
+              letters, as opposed to using Content here, content here, making it
+              look like readable English. Many desktop publishing packages and
+              web pagend web page editors now use Lorem Ipsum as their default
+              model text,
             </div>
           </Grid>
           <Grid

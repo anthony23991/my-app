@@ -1,5 +1,6 @@
 import { Grid, useMediaQuery } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 import React, { FunctionComponent, useState } from "react";
 import classes from "./productCard.module.scss";
 
@@ -45,13 +46,13 @@ const ProductCard: FunctionComponent<Props> = ({ img, title, price }) => {
             >
               $ {price}
             </div>
-            <a href="">
+            <Link href="">
               <div
                 className={[classes.buyNow, classes.poppinRegular].join(" ")}
               >
                 BUY NOW
               </div>
-            </a>
+            </Link>
           </div>
         )}
       </div>

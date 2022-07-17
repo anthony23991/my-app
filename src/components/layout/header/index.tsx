@@ -5,12 +5,20 @@ import { Grid, useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AnimateHeight from "react-animate-height";
 import CloseIcon from "@mui/icons-material/Close";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import PersonIcon from "@mui/icons-material/Person";
+import { useUserContext } from "../../../context/userContext";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Header = () => {
   const isTablet = useMediaQuery("(max-width: 1100px)");
+  const isSmallScreen = useMediaQuery("(max-width: 1300px)");
   const isMobile = useMediaQuery("(max-width: 500px)");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+  const { userState } = useUserContext();
+  const router = useRouter();
 
   return (
     <>
@@ -65,7 +73,7 @@ const Header = () => {
               <AnimateHeight
                 id="menu"
                 duration={500}
-                height={isOpened ? 350 : 0} // see props documentation below
+                height={isOpened ? 470 : 0} // see props documentation below
               >
                 <Grid
                   container
@@ -80,7 +88,7 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <a href="/">Home</a>
+                    <Link href="/">Home</Link>
                   </Grid>
                   <Grid
                     item
@@ -88,7 +96,7 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <a href="aboutUs">About</a>
+                    <Link href="aboutUs">About</Link>
                   </Grid>
                   <Grid
                     item
@@ -96,7 +104,7 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <a href="/products">Products</a>
+                    <Link href="/products">Products</Link>
                   </Grid>
                   <Grid
                     item
@@ -104,7 +112,7 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <a href="/testimonial">Testimonial</a>
+                    <Link href="/testimonial">Testimonial</Link>
                   </Grid>
                   <Grid
                     item
@@ -112,7 +120,30 @@ const Header = () => {
                     className={classes.menuItem}
                     textAlign={"center"}
                   >
-                    <a href="/contactUs">Contact Us</a>
+                    <Link href="/contactUs">Contact Us</Link>
+                  </Grid>
+                  <Grid
+                    item
+                    margin={2}
+                    className={classes.menuItem}
+                    textAlign={"center"}
+                  >
+                    <Link href="/cart">
+                      <ShoppingBasketIcon
+                        fontSize="large"
+                        className={classes.icon}
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid
+                    item
+                    margin={2}
+                    className={classes.menuItem}
+                    textAlign={"center"}
+                  >
+                    <Link href={userState?.connected ? "/profile" : "/login"}>
+                      <PersonIcon fontSize="large" className={classes.icon} />
+                    </Link>
                   </Grid>
                 </Grid>
               </AnimateHeight>
@@ -129,8 +160,8 @@ const Header = () => {
               item
               xs={8}
               marginTop={5}
-              paddingRight={"10%"}
-              paddingLeft={"10%"}
+              paddingRight={isSmallScreen ? "5%" : "10%"}
+              paddingLeft={isSmallScreen ? "5%" : "10%"}
             >
               <Grid
                 container
@@ -138,19 +169,32 @@ const Header = () => {
                 className={classes.menu}
               >
                 <Grid item className={classes.menuItem}>
-                  <a href="/">Home</a>
+                  <Link href="/">Home</Link>
                 </Grid>
                 <Grid item className={classes.menuItem}>
-                  <a href="aboutUs">About</a>
+                  <Link href="aboutUs">About</Link>
                 </Grid>
                 <Grid item className={classes.menuItem}>
-                  <a href="/products">Products</a>
+                  <Link href="/products">Products</Link>
                 </Grid>
                 <Grid item className={classes.menuItem}>
-                  <a href="/testimonial">Testimonial</a>
+                  <Link href="/testimonial">Testimonial</Link>
                 </Grid>
                 <Grid item className={classes.menuItem}>
-                  <a href="/contactUs">Contact Us</a>
+                  <Link href="/contactUs">Contact Us</Link>
+                </Grid>
+                <Grid item className={classes.menuItem}>
+                  <Link href="/cart">
+                    <ShoppingBasketIcon
+                      fontSize="large"
+                      className={classes.icon}
+                    />
+                  </Link>
+                </Grid>
+                <Grid item className={classes.menuItem}>
+                  <Link href={userState?.connected ? "/profile" : "/login"}>
+                    <PersonIcon fontSize="large" className={classes.icon} />
+                  </Link>
                 </Grid>
               </Grid>
             </Grid>

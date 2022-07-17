@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import classes from "./seeMore.module.scss";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import Link from "next/link";
 
 interface Props {
   onClick: () => void;
@@ -14,8 +15,8 @@ const SeeMore: FunctionComponent<Props> = ({ onClick, justifyContent }) => {
         className={classes.moreSection}
         style={{ justifyContent: justifyContent }}
       >
-        <a
-          href="javascript: void(0)"
+        <Link
+          href="#"
           onClick={onClick}
           style={{ display: "flex", flexDirection: "row" }}
         >
@@ -24,7 +25,7 @@ const SeeMore: FunctionComponent<Props> = ({ onClick, justifyContent }) => {
             style={{ transform: "scaleX(2)" }}
             fontSize="large"
           />
-        </a>
+        </Link>
       </div>
     </React.Fragment>
   );

@@ -30,14 +30,14 @@ const OffersCard: FunctionComponent<Props> = ({ discount, img }) => {
               <>
                 <div className={classes.imageSection}>
                   <Image
-                    src="/offer-img.png"
+                    src={img}
                     alt="logo"
                     layout="fixed"
                     height={300}
                     width={565}
                   />
                 </div>
-                <SeeMore justifyContent="flex-start" onClick={() => {}} />
+                {/* <SeeMore justifyContent="flex-start" onClick={() => {}} /> */}
               </>
             )}
           </div>

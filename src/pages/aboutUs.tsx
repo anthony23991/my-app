@@ -55,7 +55,7 @@ const AboutUs: NextPage = () => {
             justifyContent={"center"}
           >
             <Image
-              src="/about-img.png"
+              src="/products/skittles.png"
               alt="logo"
               layout={isMobile ? "fixed" : "responsive"}
               height={150}

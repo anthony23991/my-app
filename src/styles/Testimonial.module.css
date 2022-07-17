@@ -33,6 +33,12 @@
     margin-bottom: 2rem;
 }
 
+@media (max-width: 1150px) {
+  .carouselTitle {
+    padding-left: 10rem;
+  }
+}
+
 .sliderBg {
   content: "";
   position: absolute;

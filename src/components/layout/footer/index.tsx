@@ -11,12 +11,14 @@ import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import Link from "next/link";
 
 const Footer = () => {
   const isMobile = useMediaQuery("(max-width: 1280px)");
   const [openDrawer, setOpenDrawer] = useState(false);
   const [email, setEmail] = useState("");
   const isTablet = useMediaQuery("(max-width: 800px)");
+  const isSmallScreen = useMediaQuery("(max-width: 1000px)");
 
   const onChange = (value: string) => {
     setEmail(value);
@@ -31,8 +33,8 @@ const Footer = () => {
         <Grid
           justifyContent={"center"}
           textAlign={"center"}
-          paddingRight={isTablet ? 2 : 7}
-          paddingLeft={isTablet ? 2 : 7}
+          paddingRight={isTablet ? 2 : isSmallScreen ? 4 : 7}
+          paddingLeft={isTablet ? 2 : isSmallScreen ? 4 : 7}
           paddingTop={5}
           paddingBottom={5}
         >
@@ -44,7 +46,7 @@ const Footer = () => {
           >
             <Grid
               item
-              xs={isTablet ? 12 : 8}
+              xs={isTablet ? 12 : 7}
               marginRight={isTablet ? 0 : 3}
               marginBottom={5}
             >
@@ -56,7 +58,7 @@ const Footer = () => {
                 placeholder={"Email"}
               />
             </Grid>
-            <Grid item xs={isTablet ? 12 : 3}>
+            <Grid item xs={isTablet ? 12 : 4}>
               <Grid
                 container
                 flexDirection={"row"}
@@ -65,7 +67,7 @@ const Footer = () => {
                 <Grid
                   item
                   marginRight={isTablet ? 0 : 2}
-                  xs={isTablet ? 4 : 2}
+                  // xs={isTablet ? 4 : 2}
                   onClick={facebookHandler}
                   paddingLeft={isTablet ? "10%" : 0}
                 >
@@ -76,7 +78,7 @@ const Footer = () => {
                 <Grid
                   item
                   marginRight={isTablet ? 0 : 2}
-                  xs={isTablet ? 4 : 2}
+                  // xs={isTablet ? 4 : 2}
                   onClick={twitterHandler}
                   paddingLeft={isTablet ? "10%" : 0}
                 >
@@ -87,7 +89,7 @@ const Footer = () => {
                 <Grid
                   item
                   marginRight={isTablet ? 0 : 2}
-                  xs={isTablet ? 4 : 2}
+                  // xs={isTablet ? 4 : 2}
                   justifyContent="center"
                   onClick={linkedInHandler}
                   paddingLeft={isTablet ? "10%" : 0}
@@ -108,19 +110,19 @@ const Footer = () => {
             >
               <div className={classes.footerTitle}>Menu</div>
               <div className={classes.footerList}>
-                <a href={"/"}>Home</a>
+                <Link href={"/"}>Home</Link>
               </div>
               <div className={classes.footerList}>
-                <a href={"/AboutUs"}>About</a>
+                <Link href={"/aboutUs"}>About</Link>
               </div>
               <div className={classes.footerList}>
-                <a href={"/"}>Products</a>
+                <Link href={"/products"}>Products</Link>
               </div>
               <div className={classes.footerList}>
-                <a href={"/"}>Testimonial</a>
+                <Link href={"/testimonial"}>Testimonial</Link>
               </div>
               <div className={classes.footerList}>
-                <a href={"/"}>Contact Us</a>
+                <Link href={"/contactUs"}>Contact Us</Link>
               </div>
             </Grid>
             <Grid
@@ -161,11 +163,11 @@ const Footer = () => {
             <Grid item xs={isTablet ? 12 : 3}>
               <div className={classes.footerTitle}>Contact Us</div>
               <div className={classes.footerList}>
-                <a href={"/contactUs"}>
+                <Link href={"/contactUs"}>
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={isTablet ? 0 : 3}
+                    paddingLeft={0}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>
@@ -175,12 +177,12 @@ const Footer = () => {
                       <div>Location</div>
                     </Grid>
                   </Grid>
-                </a>
-                <a href={"/"}>
+                </Link>
+                <Link href={"/"}>
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={isTablet ? 0 : 3}
+                    paddingLeft={0}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>
@@ -190,12 +192,12 @@ const Footer = () => {
                       <div>Call +01 1234567890</div>
                     </Grid>
                   </Grid>
-                </a>
-                <a href={"/"}>
+                </Link>
+                <Link href={"/"}>
                   <Grid
                     container
                     flexDirection={"row"}
-                    paddingLeft={isTablet ? 0 : 3}
+                    paddingLeft={0}
                     className={classes.footerListItem}
                   >
                     <Grid item marginRight={2}>
@@ -205,7 +207,7 @@ const Footer = () => {
                       <div>demo@gmail.com</div>
                     </Grid>
                   </Grid>
-                </a>
+                </Link>
               </div>
             </Grid>
           </Grid>

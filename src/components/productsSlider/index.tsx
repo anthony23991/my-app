@@ -44,11 +44,11 @@ const ProductsSlider: FunctionComponent<Props> = ({ products }) => {
                   >
                     <div className={classes.productBrand}>{product.brand}</div>
                     <div className={classes.productName}>{product.name}</div>
-                    <SeeMore onClick={() => {}} justifyContent="center" />
+                    {/* <SeeMore onClick={() => {}} justifyContent="center" /> */}
                     <Grid textAlign={"center"} paddingTop={"5%"}>
                       <Image
                         style={{ justifySelf: "center" }}
-                        src="/about-img.png"
+                        src={product.img}
                         alt="logo"
                         layout="intrinsic"
                         width={350}
@@ -68,12 +68,12 @@ const ProductsSlider: FunctionComponent<Props> = ({ products }) => {
                         {product.brand}
                       </div>
                       <div className={classes.productName}>{product.name}</div>
-                      <SeeMore onClick={() => {}} justifyContent="flex-start" />
+                      {/* <SeeMore onClick={() => {}} justifyContent="flex-start" /> */}
                     </Grid>
                     <Grid item xs={6} textAlign={"center"} paddingTop={"5%"}>
                       <Image
                         style={{ justifySelf: "center" }}
-                        src="/about-img.png"
+                        src={product.img}
                         alt="logo"
                         layout="fixed"
                         width={isTablet ? 220 : isSmallScreen ? 300 : 350}

@@ -1,0 +1,18 @@
+.menuContainer {
+  background-color: #c4a484;
+  height: 100vh;
+}
+
+.menuItem {
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 2rem;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+
+  &:hover {
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

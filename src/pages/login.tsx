@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { ContactForm } from "../api/types/contactForm.type";
+import { ContactForm } from "../api/utils/types/contactForm.type";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
 import styles from "../styles/Login.module.css";
@@ -9,6 +9,9 @@ import React, { useState } from "react";
 import { useUserContext } from "../context/userContext";
 import Button from "../components/button";
 import Link from "next/link";
+import createProduct from "../api/product/create";
+import { Product } from "../api/utils/types/product.type";
+import { getProducts } from "../api/product/getProducts";
 
 const Login: NextPage = () => {
   const isSmall = useMediaQuery("(max-width: 450px)");
@@ -43,7 +46,6 @@ const Login: NextPage = () => {
   const handleSubmit = () => {
     console.log("A name was submitted: " + loginFormState.password);
   };
-
   return (
     <div className={styles.container}>
       <Head>

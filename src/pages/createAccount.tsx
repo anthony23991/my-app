@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { ContactForm } from "../api/types/contactForm.type";
+import { ContactForm } from "../api/utils/types/contactForm.type";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
 import styles from "../styles/Login.module.css";

@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Product } from "../../types";
+import { Product } from "../api/utils/types/product.type";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
 import OffersCard from "../components/offersCard";

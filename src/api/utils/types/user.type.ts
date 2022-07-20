@@ -11,3 +11,13 @@ export interface User {
   cart: CartItem[];
   history: Order[];
 }
+
+export interface UserCreateInput {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+  connected: boolean;
+  cart: CartItem[];
+  history: Order[];
+}

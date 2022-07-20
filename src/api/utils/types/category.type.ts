@@ -6,3 +6,9 @@ export interface Category {
   type: string;
   products: Product[];
 }
+
+export interface CategoryCreateInput {
+  name: string;
+  type: string;
+  products: Product[];
+}

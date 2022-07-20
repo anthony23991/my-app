@@ -36,7 +36,7 @@ const AdminMenu = () => {
         </Grid>
 
         <Grid item xs={8} className={classes.menuItem} paddingTop={2}>
-          <Link href={"/admin/adminUsers"}>User</Link>
+          <Link href={"/admin/users"}>User</Link>
         </Grid>
       </Grid>
       <Grid container flexDirection={"row"}>
@@ -45,7 +45,7 @@ const AdminMenu = () => {
         </Grid>
 
         <Grid item xs={8} className={classes.menuItem} paddingTop={2}>
-          <Link href={"/admin/adminProducts"}>Product</Link>
+          <Link href={"/admin/products"}>Product</Link>
         </Grid>
       </Grid>
       <Grid container flexDirection={"row"}>
@@ -54,7 +54,7 @@ const AdminMenu = () => {
         </Grid>
 
         <Grid item xs={8} className={classes.menuItem} paddingTop={2}>
-          <Link href={"/admin/adminReviews"}>Review</Link>
+          <Link href={"/admin/reviews"}>Review</Link>
         </Grid>
       </Grid>
       <Grid container flexDirection={"row"}>
@@ -63,7 +63,7 @@ const AdminMenu = () => {
         </Grid>
 
         <Grid item xs={8} className={classes.menuItem} paddingTop={2}>
-          <Link href={"/admin/adminCategories"}>Category</Link>
+          <Link href={"/admin/categories"}>Category</Link>
         </Grid>
       </Grid>
       <Grid container flexDirection={"row"}>
@@ -72,7 +72,7 @@ const AdminMenu = () => {
         </Grid>
 
         <Grid item xs={8} className={classes.menuItem} paddingTop={2}>
-          <Link href={"/admin/adminOrders"}>Order</Link>
+          <Link href={"/admin/orders"}>Order</Link>
         </Grid>
       </Grid>
     </Grid>

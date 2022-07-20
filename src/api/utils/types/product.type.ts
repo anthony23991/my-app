@@ -16,5 +16,5 @@ export interface ProductCreateInput {
   img: string;
   price: number;
   description: string;
-  category?: Category;
+  categoryId?: number;
 }

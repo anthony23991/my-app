@@ -6,5 +6,5 @@ interface Response<T> {
 }
 
 export async function getProductById(id: number) {
-  return sendRawRequest<string, Response<Product>>("get", `/review/get/${id}`);
+  return sendRawRequest<string, Response<Product>>("get", `/product/get/${id}`);
 }

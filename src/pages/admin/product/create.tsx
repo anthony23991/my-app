@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -7,19 +7,78 @@ import styles from "../../../styles/Admin.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
-import { Product } from "../../../api/utils/types/product.type";
+import {
+  Product,
+  ProductCreateInput,
+} from "../../../api/utils/types/product.type";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import storage from "../../../../firebaseConfig";
+import { getCategories } from "../../../api/category/getCategories";
+import { Category } from "../../../api/utils/types/category.type";
+
+const initialForm: ProductCreateInput = {
+  brand: "",
+  name: "",
+  img: "",
+  price: 0,
+  description: "",
+};
 
 const CreateProduct: NextPage = () => {
-  const [products, setProducts] = useState<Partial<Product>>({});
+  const [product, setProduct] = useState<ProductCreateInput>(initialForm);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [imageUpload, setImageUpload] = useState<File>();
+  const [selectedCategory, setSelectedCategory] = useState<Category>(
+    categories[0]
+  );
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(products);
+    console.log(product);
     event.preventDefault();
-    toast("Wow so easy!");
+    if (product.brand.length == 0) {
+      toast.error("Brand is required");
+    }
+    if (product.name.length == 0) {
+      toast.error("Name is required");
+    }
+    if (product.price < 1) {
+      toast.error("Price is required");
+    }
+    if (imageUpload == null) {
+      alert("Please choose an image!");
+    } else {
+      console.log(imageUpload.name);
+      const imageRef = ref(
+        storage,
+        `images/products/${product.name}-${product.brand}-${imageUpload.name}`
+      );
+      uploadBytes(imageRef, imageUpload)
+        .then((res) => {
+          toast.success("image uploaded");
+          console.log("uplowwwww", res);
+
+          // const imageRef = ref(storage, `images/products/${imageUpload.name}`);
+          // getDownloadURL(imageRef).then((url) => {
+          //   console.log(url);
+          // });
+
+          // listAll(ref(storage, `images/products`)).then((res) => {
+          //   console.log(res);
+          // });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   // isNaN(+maybeNumber)
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -52,7 +111,7 @@ const CreateProduct: NextPage = () => {
                       className={styles.adminInput}
                       type={"text"}
                       onChange={(event) => {
-                        setProducts({ ...products, name: event.target.value });
+                        setProduct({ ...product, name: event.target.value });
                       }}
                     />
                   </Grid>
@@ -66,7 +125,7 @@ const CreateProduct: NextPage = () => {
                       className={styles.adminInput}
                       type={"text"}
                       onChange={(event) => {
-                        setProducts({ ...products, brand: event.target.value });
+                        setProduct({ ...product, brand: event.target.value });
                       }}
                     />
                   </Grid>
@@ -83,8 +142,11 @@ const CreateProduct: NextPage = () => {
                   <Grid item>
                     <input
                       type={"file"}
+                      accept="image/*"
                       onChange={(event) => {
-                        console.log(event.target.files);
+                        if (event.target.files != null) {
+                          setImageUpload(event.target.files[0]);
+                        }
                       }}
                     />
                   </Grid>
@@ -98,8 +160,8 @@ const CreateProduct: NextPage = () => {
                       className={styles.adminInput}
                       type={"text"}
                       onChange={(event) => {
-                        setProducts({
-                          ...products,
+                        setProduct({
+                          ...product,
                           price: +event.target.value,
                         });
                       }}
@@ -115,12 +177,45 @@ const CreateProduct: NextPage = () => {
                       className={styles.adminInput}
                       type={"text"}
                       onChange={(event) => {
-                        setProducts({
-                          ...products,
+                        setProduct({
+                          ...product,
                           description: event.target.value,
                         });
                       }}
                     />
+                  </Grid>
+                </Grid>
+                <Grid container flexDirection={"row"} marginBottom={3}>
+                  <Grid item xs={2}>
+                    <div className={styles.label}>Category :</div>
+                  </Grid>
+                  <Grid item xs={2.5}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Category
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={selectedCategory}
+                        label="Category"
+                        onChange={(category) => {
+                          console.log(category);
+                          // setSelectedCategory(category.target.value);
+                        }}
+                      >
+                        {categories.map((category) => (
+                          <div
+                            key={category.id}
+                            style={{ marginBottom: 10, marginTop: 100 }}
+                          >
+                            <MenuItem value={category.id}>
+                              {category.name}
+                            </MenuItem>
+                          </div>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </Grid>
                 </Grid>
                 <input

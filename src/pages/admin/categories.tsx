@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import AdminMenu from "../../components/layout/adminMenu";
 import styles from "../../styles/Admin.module.css";
 import { DataGrid } from "@mui/x-data-grid";
+import Button from "../../components/button";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -60,7 +61,21 @@ const AdminCategories: NextPage = () => {
             <AdminMenu />
           </Grid>
           <Grid item xs={10} padding={5}>
-            <div className={styles.title}>Categories</div>
+            <Grid container>
+              <Grid item xs={10}>
+                <div className={styles.title}>Categories</div>
+              </Grid>
+              <Grid item xs={2} justifyContent={"flex-end"}>
+                <Link href={"/admin/category/create"}>
+                  <Button
+                    text="Add Category"
+                    onClick={() => {}}
+                    type="button"
+                    borderRadius={5}
+                  />
+                </Link>
+              </Grid>
+            </Grid>
             <div style={{ height: 400, width: "100%" }}>
               <DataGrid
                 rows={rows}

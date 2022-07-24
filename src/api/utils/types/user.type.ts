@@ -17,7 +17,7 @@ export interface UserCreateInput {
   email: string;
   phoneNumber: string;
   password: string;
-  connected: boolean;
-  cart: CartItem[];
-  history: Order[];
+  // connected: boolean;
+  // cart: CartItem[];
+  // history: Order[];
 }

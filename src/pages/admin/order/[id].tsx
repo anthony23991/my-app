@@ -7,61 +7,42 @@ import styles from "../../../styles/Admin.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
-import { Product } from "../../../api/utils/types/product.type";
-import { Category } from "../../../api/utils/types/category.type";
-import { getProductById } from "../../../api/product/getProductById";
-import { collection } from "firebase/firestore";
-import { firestore } from "../../../firebase/clientApp";
-import storage from "../../../../firebaseConfig";
-import { ref, uploadBytes } from "firebase/storage";
-import { toast } from "react-toastify";
+import { Order } from "../../../api/utils/types/order.type";
+import { User } from "../../../api/utils/types/user.type";
+import { getOrderById } from "../../../api/order/getOrderById";
 
-const initialForm: Product = {
+const initialForm: Order = {
   id: 0,
-  name: "",
-  brand: "",
-  description: "",
-  price: 0,
-  category: undefined,
-  img: "",
+  user: {} as User,
+  date: new Date(Date.now()),
+  items: [],
+  total: 0,
 };
 
-const ProductDetail: NextPage = () => {
-  const [product, setProduct] = useState<Product>(initialForm);
-  const [imageUpload, setImageUpload] = useState<File>();
+const OrderDetail: NextPage = () => {
+  const [order, setOrder] = useState<Order>(initialForm);
 
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(order);
     event.preventDefault();
-    if (imageUpload == null) {
-      alert("Please choose a file first!");
-    } else {
-      const imageRef = ref(storage, `images/products/${imageUpload.name}`);
-      uploadBytes(imageRef, imageUpload)
-        .then((res) => {
-          toast.success("image uploaded");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
   };
 
   useEffect(() => {
-    const productId = id as string;
-    getProductById(+productId)
+    const orderId = id as string;
+    getOrderById(+orderId)
       .then((res) => {
         if (res.data) {
-          setProduct(res.data);
+          setOrder(res.data);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, []);
 
   // isNaN(+maybeNumber)
 
@@ -85,35 +66,31 @@ const ProductDetail: NextPage = () => {
           </Grid>
           <Grid item xs={10} padding={5}>
             <Grid className={styles.cardContainer}>
-              <div className={styles.title}>Product N: {product.id} </div>
+              <div className={styles.title}>Order N: {order.id} </div>
               <form onSubmit={handleSubmit}>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Name :</div>
+                    <div className={styles.label}>User name :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.name}
-                      onChange={(event) => {
-                        setProduct({ ...product, name: event.target.value });
-                      }}
+                      value={order.user.name}
+                      disabled={true}
                     />
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Brand :</div>
+                    <div className={styles.label}>User ID :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.brand}
-                      onChange={(event) => {
-                        setProduct({ ...product, brand: event.target.value });
-                      }}
+                      value={order.user.id}
+                      disabled={true}
                     />
                   </Grid>
                 </Grid>
@@ -123,59 +100,31 @@ const ProductDetail: NextPage = () => {
                       className={styles.label}
                       style={{ paddingTop: "0rem" }}
                     >
-                      Image :
+                      Date :
                     </div>
                   </Grid>
                   <Grid item>
                     <input
                       type={"file"}
-                      accept="image/*"
-                      value={product.img}
-                      onChange={(event) => {
-                        if (event.target.files != null) {
-                          setImageUpload(event.target.files[0]);
-                        }
-                      }}
+                      value={order.date.toString()}
+                      disabled={true}
                     />
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Price :</div>
+                    <div className={styles.label}>Total Price :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.price}
-                      onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          price: +event.target.value,
-                        });
-                      }}
+                      value={order.total}
+                      disabled={true}
                     />
                   </Grid>
                 </Grid>
-                <Grid container flexDirection={"row"} marginBottom={3}>
-                  <Grid item xs={2}>
-                    <div className={styles.label}>Description :</div>
-                  </Grid>
-                  <Grid item>
-                    <input
-                      className={styles.adminInput}
-                      type={"text"}
-                      value={product.description}
-                      onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          description: event.target.value,
-                        });
-                      }}
-                    />
-                  </Grid>
-                  {/* Put category selector */}
-                </Grid>
+                {/* Put table for items */}
                 <input
                   className={[styles.adminInput, styles.submitInput].join(" ")}
                   type="submit"
@@ -190,4 +139,4 @@ const ProductDetail: NextPage = () => {
   );
 };
 
-export default ProductDetail;
+export default OrderDetail;

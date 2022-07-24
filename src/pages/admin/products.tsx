@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -51,6 +51,7 @@ const Products: NextPage = () => {
   useEffect(() => {
     getProducts()
       .then((res) => {
+        console.log(res.data);
         if (res.data) {
           setProducts(res.data);
         }
@@ -83,12 +84,14 @@ const Products: NextPage = () => {
                 <div className={styles.title}>Products</div>
               </Grid>
               <Grid item xs={2} justifyContent={"flex-end"}>
-                <Button
-                  text="Add Product"
-                  onClick={() => {}}
-                  type="button"
-                  borderRadius={5}
-                />
+                <Link href={"/admin/product/create"}>
+                  <Button
+                    text="Add Product"
+                    onClick={() => {}}
+                    type="button"
+                    borderRadius={5}
+                  />
+                </Link>
               </Grid>
             </Grid>
             <div style={{ height: 400, width: "100%" }}>

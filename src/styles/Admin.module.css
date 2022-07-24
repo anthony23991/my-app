@@ -80,3 +80,9 @@
     background-color: grey;
 
 }
+
+.detail {
+    cursor: pointer;
+    padding-left: 2rem;
+    width: max-content;
+}

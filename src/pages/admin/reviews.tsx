@@ -1,46 +1,76 @@
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import AdminMenu from "../../components/layout/adminMenu";
 import styles from "../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
+import Button from "../../components/button";
+import { Review } from "../../api/utils/types/review.type";
+import { useEffect, useState } from "react";
+import { getReviews } from "../../api/review/getReviews";
+import { getDownloadURL, ref } from "firebase/storage";
+import storage from "../../../firebaseConfig";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
+  { field: "authorName", headerName: "Author name", width: 130 },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
-  },
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
+    field: "img",
+    headerName: "Image",
+    width: 230,
     sortable: false,
-    width: 160,
-    valueGetter: (params: any) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+    renderCell: (params: GridRenderCellParams) => (
+      <>
+        <Image
+          src={params.value}
+          alt="Picture of the author"
+          width={500}
+          height={500}
+        />
+      </>
+    ),
   },
-];
-
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { field: "text", headerName: "Text", width: 330 },
 ];
 
 const AdminReviews: NextPage = () => {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [gotReviews, setGotReviews] = useState<boolean>(false);
+  const [done, setDone] = useState<boolean>(false);
+
+  useEffect(() => {
+    getReviews()
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setReviews(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // useEffect(() => {
+  //   const newReviews = reviews;
+  //   newReviews.map((review) => {
+  //     const imageRef = ref(storage, review.img);
+  //     getDownloadURL(imageRef)
+  //       .then((url) => {
+  //         console.log(url);
+  //         return { ...review, img: url };
+  //         // set
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   });
+  //   setReviews(newReviews);
+  //   setDone(true);
+  //   console.log(newReviews);
+  // }, [gotReviews, reviews]);
   return (
     <div className={styles.container}>
       <Head>
@@ -60,10 +90,24 @@ const AdminReviews: NextPage = () => {
             <AdminMenu />
           </Grid>
           <Grid item xs={10} padding={5}>
-            <div className={styles.title}>Reviews</div>
+            <Grid container>
+              <Grid item xs={10}>
+                <div className={styles.title}>Reviews</div>
+              </Grid>
+              <Grid item xs={2} justifyContent={"flex-end"}>
+                <Link href={"/admin/review/create"}>
+                  <Button
+                    text="Add Review"
+                    onClick={() => {}}
+                    type="button"
+                    borderRadius={5}
+                  />
+                </Link>
+              </Grid>
+            </Grid>
             <div style={{ height: 400, width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={reviews}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}

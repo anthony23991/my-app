@@ -7,28 +7,27 @@ import styles from "../../../styles/Admin.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
-import { Product } from "../../../api/utils/types/product.type";
 import { Category } from "../../../api/utils/types/category.type";
-import { getProductById } from "../../../api/product/getProductById";
-import { collection } from "firebase/firestore";
-import { firestore } from "../../../firebase/clientApp";
-import storage from "../../../../firebaseConfig";
-import { ref, uploadBytes } from "firebase/storage";
+import { User } from "../../../api/utils/types/user.type";
+import { getUserById } from "../../../api/user/getUserById";
 import { toast } from "react-toastify";
+import updateUser from "../../../api/user/updateUser";
+import Button from "../../../components/button";
+import { deleteUserById } from "../../../api/user/deleteUserById";
 
-const initialForm: Product = {
+const initialForm: User = {
   id: 0,
   name: "",
-  brand: "",
-  description: "",
-  price: 0,
-  category: undefined,
-  img: "",
+  email: "",
+  password: "",
+  phoneNumber: "",
+  connected: false,
+  cart: [],
+  history: [],
 };
 
-const ProductDetail: NextPage = () => {
-  const [product, setProduct] = useState<Product>(initialForm);
-  const [imageUpload, setImageUpload] = useState<File>();
+const UserDetail: NextPage = () => {
+  const [user, setUser] = useState<User>(initialForm);
 
   const router = useRouter();
   const { id } = router.query;
@@ -36,26 +35,57 @@ const ProductDetail: NextPage = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (imageUpload == null) {
-      alert("Please choose a file first!");
-    } else {
-      const imageRef = ref(storage, `images/products/${imageUpload.name}`);
-      uploadBytes(imageRef, imageUpload)
-        .then((res) => {
-          toast.success("image uploaded");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (user.name?.length === 0) {
+      toast.error("Name should not be empty");
+      return;
+    } else if (user.email?.length < 5) {
+      toast.error("Email should be valid");
+      return;
+    } else if (user.password?.length < 6) {
+      toast.error("Password should be at least 6 characters");
+      return;
+    } else if (user.phoneNumber?.length < 8) {
+      toast.error("Phone number should be valid");
+      return;
     }
+    updateUser(user)
+      .then((res) => {
+        if (res.success) {
+          toast.success("User updated successfully");
+        } else {
+          toast.error("User update failed");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteHandler = (id: number) => {
+    deleteUserById(id)
+      .then((res) => {
+        if (res.data) {
+          toast.success("User deleted successfully");
+          router.push("/admin/users");
+        } else {
+          toast.error("User deletion failed");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    const productId = id as string;
-    getProductById(+productId)
+    if (!id) {
+      return;
+    }
+    const userId = id as string;
+    console.log("getting", userId);
+    getUserById(+userId)
       .then((res) => {
         if (res.data) {
-          setProduct(res.data);
+          setUser(res.data);
         }
       })
       .catch((err) => {
@@ -85,7 +115,24 @@ const ProductDetail: NextPage = () => {
           </Grid>
           <Grid item xs={10} padding={5}>
             <Grid className={styles.cardContainer}>
-              <div className={styles.title}>Product N: {product.id} </div>
+              <Grid
+                container
+                flexDirection={"row"}
+                justifyContent="space-between"
+              >
+                <Grid item xs={4}>
+                  <div className={styles.title}>User N: {user.id} </div>
+                </Grid>
+                <Grid item xs={4} textAlign="end">
+                  <Button
+                    onClick={() => deleteHandler(user.id)}
+                    text={"Delete User"}
+                    type="button"
+                    borderRadius={10}
+                  />
+                </Grid>
+              </Grid>
+
               <form onSubmit={handleSubmit}>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
@@ -95,24 +142,30 @@ const ProductDetail: NextPage = () => {
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.name}
+                      value={user.name}
                       onChange={(event) => {
-                        setProduct({ ...product, name: event.target.value });
+                        setUser({
+                          ...user,
+                          name: event.target.value,
+                        });
                       }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Brand :</div>
+                    <div className={styles.label}>Phone Number :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.brand}
+                      value={user.phoneNumber}
                       onChange={(event) => {
-                        setProduct({ ...product, brand: event.target.value });
+                        setUser({
+                          ...user,
+                          phoneNumber: event.target.value,
+                        });
                       }}
                     />
                   </Grid>
@@ -123,58 +176,39 @@ const ProductDetail: NextPage = () => {
                       className={styles.label}
                       style={{ paddingTop: "0rem" }}
                     >
-                      Image :
+                      Email :
                     </div>
                   </Grid>
                   <Grid item>
                     <input
-                      type={"file"}
-                      accept="image/*"
-                      value={product.img}
+                      className={styles.adminInput}
+                      type={"text"}
+                      value={user.email}
                       onChange={(event) => {
-                        if (event.target.files != null) {
-                          setImageUpload(event.target.files[0]);
-                        }
+                        setUser({ ...user, email: event.target.value });
                       }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Price :</div>
+                    <div
+                      className={styles.label}
+                      style={{ paddingTop: "0rem" }}
+                    >
+                      Password :
+                    </div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.price}
+                      value={user.password}
                       onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          price: +event.target.value,
-                        });
+                        setUser({ ...user, password: event.target.value });
                       }}
                     />
                   </Grid>
-                </Grid>
-                <Grid container flexDirection={"row"} marginBottom={3}>
-                  <Grid item xs={2}>
-                    <div className={styles.label}>Description :</div>
-                  </Grid>
-                  <Grid item>
-                    <input
-                      className={styles.adminInput}
-                      type={"text"}
-                      value={product.description}
-                      onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          description: event.target.value,
-                        });
-                      }}
-                    />
-                  </Grid>
-                  {/* Put category selector */}
                 </Grid>
                 <input
                   className={[styles.adminInput, styles.submitInput].join(" ")}
@@ -190,4 +224,4 @@ const ProductDetail: NextPage = () => {
   );
 };
 
-export default ProductDetail;
+export default UserDetail;

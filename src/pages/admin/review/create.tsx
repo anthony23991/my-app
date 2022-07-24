@@ -7,63 +7,85 @@ import styles from "../../../styles/Admin.module.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
-import { Product } from "../../../api/utils/types/product.type";
-import { Category } from "../../../api/utils/types/category.type";
-import { getProductById } from "../../../api/product/getProductById";
-import { collection } from "firebase/firestore";
-import { firestore } from "../../../firebase/clientApp";
-import storage from "../../../../firebaseConfig";
-import { ref, uploadBytes } from "firebase/storage";
 import { toast } from "react-toastify";
+import {
+  Review,
+  ReviewCreateInput,
+} from "../../../api/utils/types/review.type";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import storage from "../../../../firebaseConfig";
+import createReview from "../../../api/review/create";
+import { deleteDoc } from "firebase/firestore";
 
-const initialForm: Product = {
-  id: 0,
-  name: "",
-  brand: "",
-  description: "",
-  price: 0,
-  category: undefined,
+const initialForm: ReviewCreateInput = {
+  authorName: "",
   img: "",
+  text: "",
 };
 
-const ProductDetail: NextPage = () => {
-  const [product, setProduct] = useState<Product>(initialForm);
+const CreateReview: NextPage = () => {
+  const [review, setReview] = useState<ReviewCreateInput>(initialForm);
   const [imageUpload, setImageUpload] = useState<File>();
 
-  const router = useRouter();
-  const { id } = router.query;
-  console.log(id);
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log(review);
     event.preventDefault();
+    if (review.authorName.length == 0) {
+      toast.error("Please enter author name");
+      return;
+    }
+    if (review.text.length == 0) {
+      toast.error("Please enter text");
+      return;
+    }
     if (imageUpload == null) {
-      alert("Please choose a file first!");
+      alert("Please choose an image!");
     } else {
-      const imageRef = ref(storage, `images/products/${imageUpload.name}`);
+      console.log(imageUpload.name);
+      const imageRef = ref(
+        storage,
+        `images/reviews/${review.authorName}-${imageUpload.name}`
+      );
       uploadBytes(imageRef, imageUpload)
         .then((res) => {
           toast.success("image uploaded");
+          console.log("uplowwwww", res);
+          getDownloadURL(imageRef)
+            .then((url) => {
+              createReview({
+                ...review,
+                img: url,
+              })
+                .then((res) => {
+                  if (res.success) {
+                    toast.success("review created");
+                  } else {
+                    toast.error("review not created");
+                    deleteObject(imageRef);
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  toast.error("review creation failed");
+                  return;
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
+          toast.error("image upload failed");
+          return;
         });
     }
   };
-
-  useEffect(() => {
-    const productId = id as string;
-    getProductById(+productId)
-      .then((res) => {
-        if (res.data) {
-          setProduct(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]);
-
-  // isNaN(+maybeNumber)
 
   return (
     <div className={styles.container}>
@@ -85,34 +107,35 @@ const ProductDetail: NextPage = () => {
           </Grid>
           <Grid item xs={10} padding={5}>
             <Grid className={styles.cardContainer}>
-              <div className={styles.title}>Product N: {product.id} </div>
+              <div className={styles.title}>Add Review</div>
               <form onSubmit={handleSubmit}>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Name :</div>
+                    <div className={styles.label}>Author Name :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.name}
                       onChange={(event) => {
-                        setProduct({ ...product, name: event.target.value });
+                        setReview({
+                          ...review,
+                          authorName: event.target.value,
+                        });
                       }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
-                    <div className={styles.label}>Brand :</div>
+                    <div className={styles.label}>Text :</div>
                   </Grid>
                   <Grid item>
                     <input
                       className={styles.adminInput}
                       type={"text"}
-                      value={product.brand}
                       onChange={(event) => {
-                        setProduct({ ...product, brand: event.target.value });
+                        setReview({ ...review, text: event.target.value });
                       }}
                     />
                   </Grid>
@@ -130,7 +153,6 @@ const ProductDetail: NextPage = () => {
                     <input
                       type={"file"}
                       accept="image/*"
-                      value={product.img}
                       onChange={(event) => {
                         if (event.target.files != null) {
                           setImageUpload(event.target.files[0]);
@@ -139,47 +161,10 @@ const ProductDetail: NextPage = () => {
                     />
                   </Grid>
                 </Grid>
-                <Grid container flexDirection={"row"} marginBottom={3}>
-                  <Grid item xs={2}>
-                    <div className={styles.label}>Price :</div>
-                  </Grid>
-                  <Grid item>
-                    <input
-                      className={styles.adminInput}
-                      type={"text"}
-                      value={product.price}
-                      onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          price: +event.target.value,
-                        });
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container flexDirection={"row"} marginBottom={3}>
-                  <Grid item xs={2}>
-                    <div className={styles.label}>Description :</div>
-                  </Grid>
-                  <Grid item>
-                    <input
-                      className={styles.adminInput}
-                      type={"text"}
-                      value={product.description}
-                      onChange={(event) => {
-                        setProduct({
-                          ...product,
-                          description: event.target.value,
-                        });
-                      }}
-                    />
-                  </Grid>
-                  {/* Put category selector */}
-                </Grid>
                 <input
                   className={[styles.adminInput, styles.submitInput].join(" ")}
                   type="submit"
-                  value="Save"
+                  value="Submit"
                 />
               </form>
             </Grid>
@@ -190,4 +175,4 @@ const ProductDetail: NextPage = () => {
   );
 };
 
-export default ProductDetail;
+export default CreateReview;

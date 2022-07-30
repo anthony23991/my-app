@@ -10,5 +10,12 @@ export interface Category {
 export interface CategoryCreateInput {
   name: string;
   type: string;
-  products: Product[];
+  products: number[];
+}
+
+export interface CategoryUpdateInput {
+  id: number;
+  name: string;
+  type: string;
+  products: number[];
 }

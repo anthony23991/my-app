@@ -12,27 +12,40 @@ import { useEffect, useState } from "react";
 import { getReviews } from "../../api/review/getReviews";
 import { getDownloadURL, ref } from "firebase/storage";
 import storage from "../../../firebaseConfig";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "id",
+    headerName: "ID",
+    width: 100,
+    renderCell: (params: GridRenderCellParams) => (
+      <>
+        <div>{params.value}</div>
+        <Link className={styles.detail} href={`/admin/review/${params.value}`}>
+          <RemoveRedEyeIcon fontSize="medium" />
+        </Link>
+      </>
+    ),
+  },
   { field: "authorName", headerName: "Author name", width: 130 },
+  { field: "text", headerName: "Text", width: 430 },
   {
     field: "img",
     headerName: "Image",
-    width: 230,
+    width: 250,
     sortable: false,
     renderCell: (params: GridRenderCellParams) => (
       <>
         <Image
           src={params.value}
           alt="Picture of the author"
-          width={500}
-          height={500}
+          width={200}
+          height={200}
         />
       </>
     ),
   },
-  { field: "text", headerName: "Text", width: 330 },
 ];
 
 const AdminReviews: NextPage = () => {
@@ -52,25 +65,6 @@ const AdminReviews: NextPage = () => {
         console.log(err);
       });
   }, []);
-
-  // useEffect(() => {
-  //   const newReviews = reviews;
-  //   newReviews.map((review) => {
-  //     const imageRef = ref(storage, review.img);
-  //     getDownloadURL(imageRef)
-  //       .then((url) => {
-  //         console.log(url);
-  //         return { ...review, img: url };
-  //         // set
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   });
-  //   setReviews(newReviews);
-  //   setDone(true);
-  //   console.log(newReviews);
-  // }, [gotReviews, reviews]);
   return (
     <div className={styles.container}>
       <Head>
@@ -105,12 +99,13 @@ const AdminReviews: NextPage = () => {
                 </Link>
               </Grid>
             </Grid>
-            <div style={{ height: 400, width: "100%" }}>
+            <div style={{ height: 600, width: "100%" }}>
               <DataGrid
                 rows={reviews}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
+                rowHeight={200}
                 checkboxSelection
                 disableSelectionOnClick={true}
                 style={{ borderWidth: 5, borderRadius: 8 }}

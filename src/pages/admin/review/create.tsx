@@ -25,12 +25,15 @@ import { deleteDoc } from "firebase/firestore";
 const initialForm: ReviewCreateInput = {
   authorName: "",
   img: "",
+  imgRef: "",
   text: "",
 };
 
 const CreateReview: NextPage = () => {
   const [review, setReview] = useState<ReviewCreateInput>(initialForm);
   const [imageUpload, setImageUpload] = useState<File>();
+  const router = useRouter();
+  const [displayImg, setDisplayImg] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     console.log(review);
@@ -60,18 +63,25 @@ const CreateReview: NextPage = () => {
               createReview({
                 ...review,
                 img: url,
+                imgRef: `images/reviews/${review.authorName}-${imageUpload.name}`,
               })
                 .then((res) => {
                   if (res.success) {
                     toast.success("review created");
+                    router.push("/admin/reviews");
                   } else {
                     toast.error("review not created");
-                    deleteObject(imageRef);
+                    deleteObject(imageRef).then((res) => {
+                      console.log("image deleted");
+                    });
                   }
                 })
                 .catch((err) => {
                   console.log(err);
                   toast.error("review creation failed");
+                  deleteObject(imageRef).then((res) => {
+                    console.log("image deleted");
+                  });
                   return;
                 });
             })
@@ -130,7 +140,7 @@ const CreateReview: NextPage = () => {
                   <Grid item xs={2}>
                     <div className={styles.label}>Text :</div>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={5}>
                     <input
                       className={styles.adminInput}
                       type={"text"}
@@ -156,9 +166,20 @@ const CreateReview: NextPage = () => {
                       onChange={(event) => {
                         if (event.target.files != null) {
                           setImageUpload(event.target.files[0]);
+                          setDisplayImg(
+                            URL.createObjectURL(event.target.files[0])
+                          );
                         }
                       }}
                     />
+                    {displayImg.length > 0 && (
+                      <Image
+                        src={displayImg}
+                        alt="d"
+                        width={200}
+                        height={200}
+                      />
+                    )}
                   </Grid>
                 </Grid>
                 <input

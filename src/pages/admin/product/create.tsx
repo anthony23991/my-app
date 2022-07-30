@@ -12,16 +12,22 @@ import {
   ProductCreateInput,
 } from "../../../api/utils/types/product.type";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import storage from "../../../../firebaseConfig";
 import { getCategories } from "../../../api/category/getCategories";
 import { Category } from "../../../api/utils/types/category.type";
+import createProduct from "../../../api/product/create";
 
 const initialForm: ProductCreateInput = {
   brand: "",
   name: "",
   img: "",
+  imgRef: "",
   price: 0,
   description: "",
 };
@@ -33,6 +39,8 @@ const CreateProduct: NextPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>(
     categories[0]
   );
+  const router = useRouter();
+  const [displayImg, setDisplayImg] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     console.log(product);
@@ -58,15 +66,36 @@ const CreateProduct: NextPage = () => {
         .then((res) => {
           toast.success("image uploaded");
           console.log("uplowwwww", res);
-
-          // const imageRef = ref(storage, `images/products/${imageUpload.name}`);
-          // getDownloadURL(imageRef).then((url) => {
-          //   console.log(url);
-          // });
-
-          // listAll(ref(storage, `images/products`)).then((res) => {
-          //   console.log(res);
-          // });
+          getDownloadURL(imageRef)
+            .then((url) => {
+              createProduct({
+                ...product,
+                img: url,
+                imgRef: `images/products/${product.name}-${product.brand}-${imageUpload.name}`,
+              })
+                .then((res) => {
+                  if (res.success) {
+                    toast.success("review created");
+                    router.push("/admin/products");
+                  } else {
+                    toast.error("review not created");
+                    deleteObject(imageRef).then((res) => {
+                      console.log("image deleted");
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  toast.error("review creation failed");
+                  deleteObject(imageRef).then((res) => {
+                    console.log("image deleted");
+                  });
+                  return;
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -126,27 +155,6 @@ const CreateProduct: NextPage = () => {
                       type={"text"}
                       onChange={(event) => {
                         setProduct({ ...product, brand: event.target.value });
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container flexDirection={"row"} marginBottom={3}>
-                  <Grid item xs={2}>
-                    <div
-                      className={styles.label}
-                      style={{ paddingTop: "0rem" }}
-                    >
-                      Image :
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <input
-                      type={"file"}
-                      accept="image/*"
-                      onChange={(event) => {
-                        if (event.target.files != null) {
-                          setImageUpload(event.target.files[0]);
-                        }
                       }}
                     />
                   </Grid>
@@ -216,6 +224,38 @@ const CreateProduct: NextPage = () => {
                         ))}
                       </Select>
                     </FormControl>
+                  </Grid>
+                </Grid>
+                <Grid container flexDirection={"row"} marginBottom={3}>
+                  <Grid item xs={2}>
+                    <div
+                      className={styles.label}
+                      style={{ paddingTop: "0rem" }}
+                    >
+                      Image :
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    <input
+                      type={"file"}
+                      accept="image/*"
+                      onChange={(event) => {
+                        if (event.target.files != null) {
+                          setImageUpload(event.target.files[0]);
+                          setDisplayImg(
+                            URL.createObjectURL(event.target.files[0])
+                          );
+                        }
+                      }}
+                    />
+                    {displayImg.length > 0 && (
+                      <Image
+                        src={displayImg}
+                        alt="d"
+                        width={200}
+                        height={200}
+                      />
+                    )}
                   </Grid>
                 </Grid>
                 <input

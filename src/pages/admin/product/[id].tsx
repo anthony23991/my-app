@@ -24,6 +24,7 @@ const initialForm: Product = {
   price: 0,
   category: undefined,
   img: "",
+  imgRef: "",
 };
 
 const ProductDetail: NextPage = () => {

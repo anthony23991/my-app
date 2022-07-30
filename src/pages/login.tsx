@@ -106,7 +106,7 @@ const Login: NextPage = () => {
               }}
             >
               <div className={styles.createText}>
-                `Don{`&quot`}t have an account ?`
+                {`Dont have an account ?`}
               </div>
               <div>
                 <Link href="/createAccount">

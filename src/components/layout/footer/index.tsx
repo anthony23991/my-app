@@ -189,7 +189,7 @@ const Footer = () => {
                       <LocalPhoneIcon />
                     </Grid>
                     <Grid item>
-                      <div>Call +01 1234567890</div>
+                      <div>Call +961-71979607</div>
                     </Grid>
                   </Grid>
                 </Link>
@@ -204,7 +204,7 @@ const Footer = () => {
                       <EmailIcon />
                     </Grid>
                     <Grid item>
-                      <div>demo@gmail.com</div>
+                      <div>tradingsarlac@gmail.com</div>
                     </Grid>
                   </Grid>
                 </Link>

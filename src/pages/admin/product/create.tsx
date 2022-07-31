@@ -1,4 +1,11 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -43,8 +50,8 @@ const CreateProduct: NextPage = () => {
   const [displayImg, setDisplayImg] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(product);
     event.preventDefault();
+    console.log(product);
     if (product.brand.length == 0) {
       toast.error("Brand is required");
     }
@@ -72,13 +79,14 @@ const CreateProduct: NextPage = () => {
                 ...product,
                 img: url,
                 imgRef: `images/products/${product.name}-${product.brand}-${imageUpload.name}`,
+                categoryId: selectedCategory.id,
               })
                 .then((res) => {
                   if (res.success) {
-                    toast.success("review created");
+                    toast.success("Product created");
                     router.push("/admin/products");
                   } else {
-                    toast.error("review not created");
+                    toast.error("Product not created");
                     deleteObject(imageRef).then((res) => {
                       console.log("image deleted");
                     });
@@ -86,7 +94,7 @@ const CreateProduct: NextPage = () => {
                 })
                 .catch((err) => {
                   console.log(err);
-                  toast.error("review creation failed");
+                  toast.error("Product creation failed");
                   deleteObject(imageRef).then((res) => {
                     console.log("image deleted");
                   });
@@ -106,7 +114,18 @@ const CreateProduct: NextPage = () => {
   // isNaN(+maybeNumber)
 
   useEffect(() => {
-    getCategories();
+    getCategories()
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+          setCategories(res.data);
+        } else {
+          toast.error("No categories found");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -198,32 +217,24 @@ const CreateProduct: NextPage = () => {
                     <div className={styles.label}>Category :</div>
                   </Grid>
                   <Grid item xs={2.5}>
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Category
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selectedCategory}
-                        label="Category"
-                        onChange={(category) => {
-                          console.log(category);
-                          // setSelectedCategory(category.target.value);
-                        }}
-                      >
-                        {categories.map((category) => (
-                          <div
-                            key={category.id}
-                            style={{ marginBottom: 10, marginTop: 100 }}
-                          >
-                            <MenuItem value={category.id}>
-                              {category.name}
-                            </MenuItem>
-                          </div>
-                        ))}
-                      </Select>
-                    </FormControl>
+                    <select
+                      className={styles.adminSelect}
+                      onChange={(event) => {
+                        setSelectedCategory(
+                          categories[event.target.value as unknown as number]
+                        );
+                      }}
+                    >
+                      {categories.map((category, index) => (
+                        <option
+                          key={index}
+                          value={index}
+                          className={styles.adminOption}
+                        >
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
                   </Grid>
                 </Grid>
                 <Grid container flexDirection={"row"} marginBottom={3}>

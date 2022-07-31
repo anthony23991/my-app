@@ -5,15 +5,28 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import AdminMenu from "../../components/layout/adminMenu";
 import styles from "../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { Category } from "../../api/utils/types/category.type";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/product/getProducts";
 import { Product } from "../../api/utils/types/product.type";
 import Button from "../../components/button";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "id",
+    headerName: "ID",
+    width: 100,
+    renderCell: (params: GridRenderCellParams) => (
+      <>
+        <div>{params.value}</div>
+        <Link className={styles.detail} href={`/admin/product/${params.value}`}>
+          <RemoveRedEyeIcon fontSize="medium" />
+        </Link>
+      </>
+    ),
+  },
   { field: "name", headerName: "Name", width: 130 },
   { field: "brand", headerName: "Brand", width: 130 },
   {
@@ -36,7 +49,8 @@ const columns = [
     field: "Category",
     headerName: "Category Name",
     width: 200,
-    valueGetter: (params: any) => `${params.name}`,
+    valueGetter: (params: any) =>
+      `${params.value ? params.value.name : "no category"}`,
   },
 ];
 
@@ -45,7 +59,7 @@ const Products: NextPage = () => {
 
   if (products.length !== 0) {
     console.log(products);
-    console.log(products[0].category);
+    console.log(products[0].Category);
   }
 
   useEffect(() => {

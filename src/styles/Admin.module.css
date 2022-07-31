@@ -86,3 +86,16 @@
     padding-left: 2rem;
     width: max-content;
 }
+
+.adminSelect {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    padding-left: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+}
+
+.adminOption {
+    height: 500px;
+}

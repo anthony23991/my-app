@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getProducts } from "../api/product/getProducts";
 import { Product } from "../api/utils/types/product.type";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
@@ -15,32 +17,19 @@ import Products from "./products";
 import Testimonial from "./testimonial";
 
 const Home: NextPage = () => {
-  const testProducts: Product[] = [
-    {
-      brand: "Kinder",
-      name: "Maxi",
-      img: "/products/maxi.png",
-      id: 1,
-      price: 1.9,
-      description: "",
-    },
-    {
-      brand: "chocolate",
-      name: "M & M",
-      img: "/products/m&m.png",
-      id: 2,
-      price: 2.9,
-      description: "",
-    },
-    {
-      brand: "choc",
-      name: "Maltesers",
-      img: "/products/maltesers.png",
-      id: 3,
-      price: 3.9,
-      description: "",
-    },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    getProducts()
+      .then((res) => {
+        if (res.data) {
+          setProducts(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -57,7 +46,7 @@ const Home: NextPage = () => {
 
       <main>
         <Header />
-        <ProductsSlider products={testProducts} />
+        <ProductsSlider products={products} />
         <AboutUs />
         <Products />
         <OffersCard img="/products/skittles.png" discount={5} />

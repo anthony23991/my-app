@@ -21,3 +21,8 @@ export interface UserCreateInput {
   // cart: CartItem[];
   // history: Order[];
 }
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}

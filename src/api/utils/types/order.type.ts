@@ -7,6 +7,7 @@ export interface Order {
   date: Date;
   items: CartItem[];
   total: number;
+  delivered: boolean;
 }
 
 export interface OrderCreateInput {

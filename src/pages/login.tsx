@@ -44,7 +44,12 @@ const Login: NextPage = () => {
   };
 
   const handleSubmit = () => {
-    console.log("A name was submitted: " + loginFormState.password);
+    console.log(
+      "A name was submitted: " +
+        loginFormState.email +
+        " " +
+        loginFormState.password
+    );
   };
   return (
     <div className={styles.container}>

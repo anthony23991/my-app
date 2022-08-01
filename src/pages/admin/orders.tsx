@@ -1,46 +1,72 @@
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import AdminMenu from "../../components/layout/adminMenu";
 import styles from "../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { getOrders } from "../../api/order/getOrders";
+import { useEffect, useState } from "react";
+import { Order } from "../../api/utils/types/order.type";
 
 const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
   {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 90,
+    field: "id",
+    headerName: "ID",
+    width: 100,
+    renderCell: (params: GridRenderCellParams) => (
+      <>
+        <div>{params.value}</div>
+        <Link className={styles.detail} href={`/admin/order/${params.value}`}>
+          <RemoveRedEyeIcon fontSize="medium" />
+        </Link>
+      </>
+    ),
   },
   {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
+    field: "user",
+    headerName: "User Name",
+    width: 200,
     valueGetter: (params: any) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      `${params.value ? params.value.name : "no category"}`,
   },
-];
-
-const rows = [
-  { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-  { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-  { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-  { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-  { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-  { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-  { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-  { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-  { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  { field: "date", headerName: "Order Date", width: 200 },
+  {
+    field: "total",
+    headerName: "Total",
+    width: 150,
+  },
+  {
+    field: "delivered",
+    headerName: "Delivered",
+    width: 150,
+  },
+  {
+    field: "items",
+    headerName: "Cart Size",
+    width: 250,
+    valueGetter: (params: any) =>
+      `${params.value ? `${params.value.length} Items` : "no cart"}`,
+  },
 ];
 
 const AdminOrders: NextPage = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    getOrders()
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          setOrders(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -63,7 +89,7 @@ const AdminOrders: NextPage = () => {
             <div className={styles.title}>Orders</div>
             <div style={{ height: 400, width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={orders}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}

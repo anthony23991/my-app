@@ -52,6 +52,7 @@ const UserDetail: NextPage = () => {
       .then((res) => {
         if (res.success) {
           toast.success("User updated successfully");
+          router.push("/admin/users");
         } else {
           toast.error("User update failed");
         }

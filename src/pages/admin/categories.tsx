@@ -39,7 +39,9 @@ const columns = [
     sortable: false,
     renderCell: (params: GridRenderCellParams) =>
       params.value.map((product: any) => (
-        <div key={product.id}>{product.name}</div>
+        <div style={{ marginRight: 20 }} key={product.id}>
+          {product.name}
+        </div>
       )),
   },
 ];

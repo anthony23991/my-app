@@ -1,35 +1,21 @@
 import {
   Avatar,
-  Box,
   Checkbox,
-  Chip,
-  FormControl,
   Grid,
-  InputLabel,
   List,
   ListItem,
   ListItemAvatar,
   ListItemButton,
   ListItemText,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Theme,
 } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
 import { toast } from "react-toastify";
-import {
-  Category,
-  CategoryCreateInput,
-} from "../../../api/utils/types/category.type";
+import { CategoryCreateInput } from "../../../api/utils/types/category.type";
 import { Product } from "../../../api/utils/types/product.type";
 import { getSoloProducts } from "../../../api/product/getSoloProducts";
 import createCategory from "../../../api/category/create";
@@ -44,6 +30,7 @@ const CreateCategory: NextPage = () => {
   const [category, setCategory] = useState<CategoryCreateInput>(initialForm);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const router = useRouter();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     console.log(category);
@@ -72,6 +59,7 @@ const CreateCategory: NextPage = () => {
           toast.success("Category created");
           setCategory(initialForm);
           setSelectedProducts([]);
+          router.push("/admin/categories");
         } else {
           toast.error("Category failed to create, please try again");
         }

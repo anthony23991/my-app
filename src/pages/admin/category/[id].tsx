@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
 import {
@@ -73,6 +71,7 @@ const CategoryDetail: NextPage = () => {
       .then((resp) => {
         if (resp.success) {
           toast.success("Category updated");
+          router.push("/admin/categories");
         } else {
           toast.error("Category failed to update, please try again");
         }

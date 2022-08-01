@@ -1,15 +1,18 @@
-import { Grid } from "@mui/material";
+import { Grid, Link } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "../../../styles/Admin.module.css";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import AdminMenu from "../../../components/layout/adminMenu";
 import { Order } from "../../../api/utils/types/order.type";
 import { User } from "../../../api/utils/types/user.type";
 import { getOrderById } from "../../../api/order/getOrderById";
+import { deleteOrderById } from "../../../api/order/deleteOrder";
+import { toast } from "react-toastify";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 const initialForm: Order = {
   id: 0,
@@ -17,7 +20,32 @@ const initialForm: Order = {
   date: new Date(Date.now()),
   items: [],
   total: 0,
+  delivered: false,
 };
+
+const columns = [
+  {
+    field: "id",
+    headerName: "ID",
+    width: 100,
+  },
+  {
+    field: "product",
+    headerName: "Product Name",
+    width: 300,
+    valueGetter: (params: any) =>
+      `${params.value ? params.value.name : "no name"}`,
+    renderCell: (params: GridRenderCellParams) => (
+      <>
+        <div>{params.value}</div>
+        <Link className={styles.detail} href={`/admin/product/${params.value}`}>
+          <RemoveRedEyeIcon fontSize="medium" />
+        </Link>
+      </>
+    ),
+  },
+  { field: "quantity", headerName: "Quantity", width: 100 },
+];
 
 const OrderDetail: NextPage = () => {
   const [order, setOrder] = useState<Order>(initialForm);
@@ -26,9 +54,19 @@ const OrderDetail: NextPage = () => {
   const { id } = router.query;
   console.log(id);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(order);
-    event.preventDefault();
+  const deleteHandler = (id: number) => {
+    deleteOrderById(id)
+      .then((res) => {
+        if (res.data) {
+          toast.success("Order deleted successfully");
+          router.push("/admin/orders");
+        } else {
+          toast.error("User deletion failed");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -67,7 +105,7 @@ const OrderDetail: NextPage = () => {
           <Grid item xs={10} padding={5}>
             <Grid className={styles.cardContainer}>
               <div className={styles.title}>Order N: {order.id} </div>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <Grid container flexDirection={"row"} marginBottom={3}>
                   <Grid item xs={2}>
                     <div className={styles.label}>User name :</div>
@@ -124,12 +162,24 @@ const OrderDetail: NextPage = () => {
                     />
                   </Grid>
                 </Grid>
-                {/* Put table for items */}
-                <input
-                  className={[styles.adminInput, styles.submitInput].join(" ")}
-                  type="submit"
-                  value="Save"
-                />
+                <Grid container flexDirection={"row"} marginBottom={3}>
+                  <Grid item xs={2}>
+                    <div className={styles.label}>Cart :</div>
+                  </Grid>
+                  <Grid item>
+                    <div style={{ height: 400, width: "100%" }}>
+                      <DataGrid
+                        rows={order.items}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        checkboxSelection
+                        disableSelectionOnClick={true}
+                        style={{ borderWidth: 5, borderRadius: 8 }}
+                      />
+                    </div>
+                  </Grid>
+                </Grid>
               </form>
             </Grid>
           </Grid>

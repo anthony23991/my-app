@@ -12,6 +12,8 @@ import Link from "next/link";
 import createProduct from "../api/product/create";
 import { Product } from "../api/utils/types/product.type";
 import { getProducts } from "../api/product/getProducts";
+import login from "../api/user/login";
+import { toast } from "react-toastify";
 
 const Login: NextPage = () => {
   const isSmall = useMediaQuery("(max-width: 450px)");
@@ -50,6 +52,23 @@ const Login: NextPage = () => {
         " " +
         loginFormState.password
     );
+    login({
+      email: loginFormState.email,
+      password: loginFormState.password,
+    })
+      .then((res) => {
+        console.log(res.data.data);
+        if (!res.data.data) {
+          toast.error("Invalid email or password");
+        }
+        if (typeof res.data.data === "object") {
+          console.log("welcome " + res.name);
+          toast.success("welcome " + res.data.data.name);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className={styles.container}>
